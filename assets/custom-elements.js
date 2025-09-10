@@ -4,14 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var categoriesBtn = document.querySelector('.alx-categories-btn');
   var categoryItems = document.querySelectorAll('.alx-category-item');
   var megaMenuContents = document.querySelectorAll('.alx-mega-menu-content');
+  // Mở sidebar/mega menu khi click All Categories
   if (categories && categoriesBtn) {
     categoriesBtn.addEventListener('click', function(e) {
       e.preventDefault();
       categories.classList.toggle('active');
-    });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.alx-categories')) {
-        categories.classList.remove('active');
+      // Nếu vừa mở thì ẩn hết menu con
+      if (categories.classList.contains('active')) {
         megaMenuContents.forEach(function(content) {
           content.classList.add('hidden');
         });
@@ -20,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Xử lý click vào từng mục sidebar
     categoryItems.forEach(function(item) {
       item.addEventListener('click', function(e) {
+        e.stopPropagation();
         var idx = item.getAttribute('data-index');
         megaMenuContents.forEach(function(content) {
           if (content.getAttribute('data-index') === idx) {
@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
+    });
+    // Click ra ngoài ẩn tất cả
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.alx-categories')) {
+        categories.classList.remove('active');
+        megaMenuContents.forEach(function(content) {
+          content.classList.add('hidden');
+        });
+      }
     });
   }
 });
