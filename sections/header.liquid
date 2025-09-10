@@ -466,8 +466,8 @@
 
     {% comment %} Desktop navigation {% endcomment %}
     {%- if section.settings.menu != blank -%}
-      <!-- AliExpress-style Mega Menu Bar -->
-      <nav class="alx-mega-navbar w-full bg-white shadow flex items-center sticky top-[56px] z-40">
+      <!-- AliExpress-style Mega Menu Bar (Desktop only) -->
+      <nav class="alx-mega-navbar w-full bg-white shadow flex items-center sticky top-[56px] z-40" id="alxMegaMenuBar" style="display:none;">
         <!-- All Categories Button -->
         <div class="alx-categories relative group">
           <button class="alx-categories-btn flex items-center px-4 py-3 font-semibold hover:bg-gray-100 transition">
@@ -508,6 +508,13 @@
         </div>
         <!-- End All Categories -->
       </nav>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          if(window.innerWidth >= 990) {
+            document.getElementById('alxMegaMenuBar').style.display = 'flex';
+          }
+        });
+      </script>
     {%- endif -%}
 
     {% comment %} Center logo {% endcomment %}
