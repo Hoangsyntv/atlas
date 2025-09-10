@@ -1,18 +1,15 @@
 // Xử lý click cho mega menu (desktop/mobile)
 document.addEventListener('DOMContentLoaded', function() {
+  var categories = document.querySelector('.alx-categories');
   var categoriesBtn = document.querySelector('.alx-categories-btn');
-  var categoriesSidebar = document.querySelector('.alx-categories-sidebar');
-  var megaMenu = document.querySelector('.alx-mega-menu');
-  if (categoriesBtn && categoriesSidebar && megaMenu) {
+  if (categories && categoriesBtn) {
     categoriesBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      categoriesSidebar.style.display = categoriesSidebar.style.display === 'block' ? 'none' : 'block';
-      megaMenu.style.display = megaMenu.style.display === 'block' ? 'none' : 'block';
+      categories.classList.toggle('active');
     });
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.alx-categories')) {
-        categoriesSidebar.style.display = 'none';
-        megaMenu.style.display = 'none';
+        categories.classList.remove('active');
       }
     });
   }

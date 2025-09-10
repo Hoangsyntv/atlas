@@ -1,15 +1,31 @@
 /* Sửa lại vị trí menu bar để không bị đẩy ra ngoài khung nhìn */
 
+
 #alxMegaMenuBar {
     position: sticky;
     top: 0;
     z-index: 40;
     width: 100%;
+    display: flex !important;
+}
+
+.alx-header {
+    display: flex !important;
+}
+
+/* Mega menu sidebar và content luôn ẩn, chỉ hiện khi có class .active hoặc hover/click */
+.alx-categories-sidebar,
+.alx-mega-menu {
     display: none;
 }
+.alx-categories.active .alx-categories-sidebar,
+.alx-categories.active .alx-mega-menu {
+    display: block !important;
+}
 @media (min-width: 990px) {
-    #alxMegaMenuBar {
-        display: flex;
+    .alx-categories:hover .alx-categories-sidebar,
+    .alx-categories:hover .alx-mega-menu {
+        display: block;
     }
 }
 
