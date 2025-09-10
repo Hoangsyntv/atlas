@@ -19,6 +19,34 @@
 <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>
 
+<script>
+// Immediate JavaScript fix for mega menu hover
+document.addEventListener('DOMContentLoaded', function() {
+  const dropdown = document.querySelector('.alx-categories-dropdown');
+  const menu = document.querySelector('.alx-categories-menu');
+  
+  if (dropdown && menu) {
+    console.log('AliExpress mega menu initialized');
+    
+    dropdown.addEventListener('mouseenter', function() {
+      menu.style.cssText = `
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+      `;
+    });
+    
+    dropdown.addEventListener('mouseleave', function() {
+      menu.style.cssText = `
+        display: none !important;
+      `;
+    });
+  }
+});
+</script>
+
 {% comment %} Header styles {% endcomment %}
 <style>
   /* Quick fix for mega menu visibility */
@@ -93,6 +121,19 @@
   .alx-category-link:hover {
     background: #f9f9f9 !important;
     color: #ff4747 !important;
+  }
+  
+  /* Force mega menu content to display */
+  .alx-mega-menu-content {
+    background: white !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 20px !important;
+    min-width: 600px !important;
+    flex: 1 !important;
+  }
+  
+  .alx-categories-menu {
+    display: flex !important;
   }
 
   header-drawer {
