@@ -1,16 +1,29 @@
 /* Sửa lại vị trí menu bar để không bị đẩy ra ngoài khung nhìn */
+
 #alxMegaMenuBar {
     position: sticky;
-    top: 56px !important;
+    top: 0;
     z-index: 40;
-}
-/* Hiển thị menu bar AliExpress-style đúng trên desktop, ẩn trên mobile */
-#alxMegaMenuBar {
+    width: 100%;
     display: none;
 }
 @media (min-width: 990px) {
     #alxMegaMenuBar {
         display: flex;
+    }
+}
+
+/* Hiển thị sidebar và mega menu khi hover vào .alx-categories */
+.alx-categories-sidebar,
+.alx-mega-menu {
+    display: none;
+}
+@media (min-width: 990px) {
+    .alx-categories:hover .alx-categories-sidebar {
+        display: block;
+    }
+    .alx-categories:hover .alx-mega-menu {
+        display: block;
     }
 }
 
