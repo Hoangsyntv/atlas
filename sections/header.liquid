@@ -467,7 +467,7 @@
     {% comment %} Desktop navigation {% endcomment %}
     {%- if section.settings.menu != blank -%}
       <!-- AliExpress-style Mega Menu Bar (Desktop only) -->
-      <nav class="alx-mega-navbar w-full bg-white shadow flex items-center sticky top-[56px] z-40" id="alxMegaMenuBar" style="display:none;">
+  <nav class="alx-mega-navbar w-full bg-white shadow flex items-center sticky top-[56px] z-40" id="alxMegaMenuBar">
         <!-- All Categories Button -->
         <div class="alx-categories relative group">
           <button class="alx-categories-btn flex items-center px-4 py-3 font-semibold hover:bg-gray-100 transition">
@@ -475,7 +475,7 @@
             All Categories
           </button>
           <!-- Sidebar Level 1 -->
-          <div class="alx-categories-sidebar absolute left-0 top-full bg-white shadow-lg w-64 hidden group-hover:block transition duration-200">
+          <div class="alx-categories-sidebar absolute left-0 top-full bg-white shadow-lg w-64 group-hover:block transition duration-200">
             <ul>
               {% for link in section.settings.menu.links %}
                 <li class="alx-category-item hover:bg-gray-100 cursor-pointer px-4 py-2" data-index="{{ forloop.index }}">
@@ -485,7 +485,7 @@
             </ul>
           </div>
           <!-- Mega Menu Level 2/3 -->
-          <div class="alx-mega-menu absolute left-64 top-0 bg-white shadow-lg w-[800px] min-h-full hidden group-hover:block transition duration-200">
+          <div class="alx-mega-menu absolute left-64 top-0 bg-white shadow-lg w-[800px] min-h-full group-hover:block transition duration-200">
             {% for link in section.settings.menu.links %}
               <div class="alx-mega-menu-content hidden" data-index="{{ forloop.index }}">
                 <div class="flex gap-8 p-6">
@@ -509,11 +509,7 @@
         <!-- End All Categories -->
       </nav>
       <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          if(window.innerWidth >= 990) {
-            document.getElementById('alxMegaMenuBar').style.display = 'flex';
-          }
-        });
+  // Đã chuyển sang dùng CSS, không cần JS để hiển thị menu bar nữa
       </script>
     {%- endif -%}
 

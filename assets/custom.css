@@ -1,3 +1,18 @@
+/* Sửa lại vị trí menu bar để không bị đẩy ra ngoài khung nhìn */
+#alxMegaMenuBar {
+    position: sticky;
+    top: 56px !important;
+    z-index: 40;
+}
+/* Hiển thị menu bar AliExpress-style đúng trên desktop, ẩn trên mobile */
+#alxMegaMenuBar {
+    display: none;
+}
+@media (min-width: 990px) {
+    #alxMegaMenuBar {
+        display: flex;
+    }
+}
 
 
 .main-product-banner {
