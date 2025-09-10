@@ -240,97 +240,45 @@
                   </ul>
                 </nav>
 
-                {% comment %} Secondary navigation {% endcomment %}
-                {% if section.settings.secondary_menu != blank %}
-                  <nav class="menu-drawer__navigation menu-drawer__secondary-nav">
-                    <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-                      {%- for link in section.settings.secondary_menu.links -%}
-                        <li>
-                          {%- if link.links != blank -%}
-                            <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
-                              <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}">
-                                {{ link.title | escape }}
-                                {% render 'icon-arrow' %}
-                                {% render 'icon-caret' %}
-                              </summary>
-                              <div id="link-{{ link.handle | escape }}" class="menu-drawer__submenu has-submenu gradient motion-reduce" tabindex="-1">
-                                <div class="menu-drawer__inner-submenu">
-                                  <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
-                                    {% render 'icon-arrow' %}
-                                    {{ link.title | escape }}
-                                  </button>
-                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                                    {%- for childlink in link.links -%}
-                                      <li>
-                                        {%- if childlink.links == blank -%}
-                                          <a href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
-                                            {{ childlink.title | escape }}
-                                          </a>
-                                        {%- else -%}
-                                          <details id="Details-menu-drawer-submenu-{{ forloop.index }}">
-                                            <summary class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
-                                              {{ childlink.title | escape }}
-                                              {% render 'icon-arrow' %}
-                                              {% render 'icon-caret' %}
-                                            </summary>
-                                            <div id="childlink-{{ childlink.handle | escape }}" class="menu-drawer__submenu has-submenu gradient motion-reduce">
-                                              <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
-                                                {% render 'icon-arrow' %}
-                                                {{ childlink.title | escape }}
-                                              </button>
-                                              <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                                                {%- for grandchildlink in childlink.links -%}
-                                                  <li>
-                                                    <a href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
-                                                      {{ grandchildlink.title | escape }}
-                                                    </a>
-                                                  </li>
-                                                {%- endfor -%}
-                                              </ul>
-                                            </div>
-                                          </details>
-                                        {%- endif -%}
-                                      </li>
-                                    {%- endfor -%}
-                                  </ul>
-                                </div>
-                              </div>
-                            </details>
-                          {%- else -%}
-                            <a href="{{ link.url }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
-                              {{ link.title | escape }}
-                            </a>
-                          {%- endif -%}
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </nav>
-                {% endif %}
-
-                {% comment %} Utility links {% endcomment %}
-                <div class="menu-drawer__utility-links">
-                  {%- if shop.customer_accounts_enabled -%}
-                    <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="menu-drawer__account link focus-inset h5">
-                      {% render 'icon-account' %}
-                      {%- liquid
-                        if customer
-                          echo 'customer.account_fallback' | t
-                        else
-                          echo 'customer.log_in' | t
-                        endif
-                      -%}
+                <!-- AliExpress-style Header -->
+                <div class="alx-header flex items-center justify-between w-full py-2 px-4 bg-white shadow sticky top-0 z-50">
+                  <!-- Left: Logo -->
+                  <div class="alx-header__left flex items-center">
+                    <a href="{{ routes.root_url }}" class="alx-header__logo">
+                      {% if settings.logo != blank %}
+                        <img src="{{ settings.logo | image_url: width: 120 }}" alt="{{ settings.logo.alt | default: shop.name }}" class="h-10 w-auto" />
+                      {% else %}
+                        <span class="font-bold text-xl">{{ shop.name }}</span>
+                      {% endif %}
                     </a>
-                  {%- endif -%}
-                  
-                  {% comment %} Social links {% endcomment %}
-                  <ul class="list list-social list-unstyled" role="list">
-                    {%- if settings.social_twitter_link != blank -%}
-                      <li class="list-social__item">
-                        <a href="{{ settings.social_twitter_link }}" class="list-social__link link">
-                          {%- render 'icon-twitter' -%}
-                          <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
-                        </a>
-                      </li>
+                  </div>
+                  <!-- Center: Search Bar -->
+                  <div class="alx-header__center flex-1 mx-8">
+                    <form action="{{ routes.search_url }}" method="get" class="flex">
+                      <input type="search" name="q" placeholder="Tìm kiếm sản phẩm..." class="alx-search-input border rounded-l px-4 py-2 w-full focus:outline-none" />
+                      <button type="submit" class="alx-search-btn bg-red-500 text-white px-4 rounded-r">Tìm kiếm</button>
+                    </form>
+                  </div>
+                  <!-- Right: Language/Currency, Account, Cart -->
+                  <div class="alx-header__right flex items-center gap-4">
+                    <!-- Language/Currency Switcher -->
+                    <div class="alx-header__lang-currency">
+                      <button class="alx-lang-btn px-2 py-1 border rounded">🌐</button>
+                    </div>
+                    <!-- Account -->
+                    <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="alx-account-btn px-2 py-1 border rounded flex items-center">
+                      <svg width="24" height="24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 8-4 8-4s8 0 8 4"/></svg>
+                    </a>
+                    <!-- Cart -->
+                    <a href="{{ routes.cart_url }}" class="alx-cart-btn px-2 py-1 border rounded flex items-center relative">
+                      <svg width="24" height="24" fill="none" stroke="currentColor"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+                      {% if cart.item_count > 0 %}
+                        <span class="alx-cart-count absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 text-xs">{{ cart.item_count }}</span>
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+                <!-- End AliExpress-style Header -->
                     {%- endif -%}
                     {%- if settings.social_facebook_link != blank -%}
                       <li class="list-social__item">
@@ -518,54 +466,47 @@
 
     {% comment %} Desktop navigation {% endcomment %}
     {%- if section.settings.menu != blank -%}
-      <nav class="header__inline-menu">
-        <ul class="list-menu list-menu--inline" role="list">
-          {%- for link in section.settings.menu.links -%}
-            <li>
-              {%- if link.links != blank -%}
-                <header-menu>
-                  <details id="Details-HeaderMenu-{{ forloop.index }}">
-                    <summary class="header__menu-item list-menu__item link focus-inset">
-                      <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
-                      {% render 'icon-caret' %}
-                    </summary>
-                    <ul id="HeaderMenu-MenuList-{{ forloop.index }}" class="header__submenu list-menu list-menu--disclosure gradient caption-large motion-reduce global-settings-popup" role="list" tabindex="-1">
-                      {%- for childlink in link.links -%}
-                        <li>
-                          {%- if childlink.links == blank -%}
-                            <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
-                              {{ childlink.title | escape }}
-                            </a>
-                          {%- else -%}
-                            <details id="Details-HeaderSubMenu-{{ forloop.index }}">
-                              <summary class="header__menu-item link link--text list-menu__item focus-inset caption-large">
-                                <span>{{ childlink.title | escape }}</span>
-                                {% render 'icon-caret' %}
-                              </summary>
-                              <ul id="HeaderMenu-SubMenuList-{{ forloop.index }}" class="header__submenu list-menu motion-reduce">
-                                {%- for grandchildlink in childlink.links -%}
-                                  <li>
-                                    <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
-                                      {{ grandchildlink.title | escape }}
-                                    </a>
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            </details>
-                          {%- endif -%}
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </details>
-                </header-menu>
-              {%- else -%}
-                <a href="{{ link.url }}" class="header__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
-                  <span {%- if link.current %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
-                </a>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
-        </ul>
+      <!-- AliExpress-style Mega Menu Bar -->
+      <nav class="alx-mega-navbar w-full bg-white shadow flex items-center sticky top-[56px] z-40">
+        <!-- All Categories Button -->
+        <div class="alx-categories relative group">
+          <button class="alx-categories-btn flex items-center px-4 py-3 font-semibold hover:bg-gray-100 transition">
+            <svg width="20" height="20" fill="none" stroke="currentColor" class="mr-2"><rect x="3" y="6" width="14" height="2"/><rect x="3" y="12" width="14" height="2"/></svg>
+            All Categories
+          </button>
+          <!-- Sidebar Level 1 -->
+          <div class="alx-categories-sidebar absolute left-0 top-full bg-white shadow-lg w-64 hidden group-hover:block transition duration-200">
+            <ul>
+              {% for link in section.settings.menu.links %}
+                <li class="alx-category-item hover:bg-gray-100 cursor-pointer px-4 py-2" data-index="{{ forloop.index }}">
+                  {{ link.title | escape }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!-- Mega Menu Level 2/3 -->
+          <div class="alx-mega-menu absolute left-64 top-0 bg-white shadow-lg w-[800px] min-h-full hidden group-hover:block transition duration-200">
+            {% for link in section.settings.menu.links %}
+              <div class="alx-mega-menu-content hidden" data-index="{{ forloop.index }}">
+                <div class="flex gap-8 p-6">
+                  {% for childlink in link.links %}
+                    <div class="alx-mega-col min-w-[180px]">
+                      <div class="font-bold mb-2">{{ childlink.title | escape }}</div>
+                      <ul>
+                        {% for grandchildlink in childlink.links %}
+                          <li>
+                            <a href="{{ grandchildlink.url }}" class="text-gray-700 hover:text-red-500 transition">{{ grandchildlink.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- End All Categories -->
       </nav>
     {%- endif -%}
 
