@@ -23,38 +23,46 @@
 // Immediate JavaScript fix for mega menu hover
 document.addEventListener('DOMContentLoaded', function() {
   const dropdown = document.querySelector('.alx-categories-dropdown');
+  const trigger = document.querySelector('.alx-categories-trigger');
   const menu = document.querySelector('.alx-categories-menu');
   
-  if (dropdown && menu) {
-    console.log('AliExpress mega menu initialized');
-    
-    dropdown.addEventListener('mouseenter', function() {
-      menu.style.cssText = `
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-        pointer-events: auto !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        z-index: 9999 !important;
-        background: white !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-        border: 1px solid #e0e0e0 !important;
-        width: 100% !important;
-        min-height: 300px !important;
-      `;
-      console.log('Mega menu SHOW');
-    });
-    
-    dropdown.addEventListener('mouseleave', function() {
-      menu.style.cssText = `
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-      `;
-      console.log('Mega menu HIDE');
+  console.log('AliExpress mega menu debug:', {
+    dropdown: !!dropdown,
+    trigger: !!trigger, 
+    menu: !!menu
+  });
+  
+  if (menu) {
+    // Try both dropdown and trigger elements
+    [dropdown, trigger].forEach((element, index) => {
+      if (element) {
+        console.log(`Binding events to element ${index + 1}`);
+        
+        element.addEventListener('mouseenter', function() {
+          console.log(`Element ${index + 1} HOVER - Mega menu SHOW`);
+          
+          // Force show with setProperty for stronger override
+          menu.style.setProperty('display', 'flex', 'important');
+          menu.style.setProperty('visibility', 'visible', 'important');
+          menu.style.setProperty('opacity', '1', 'important');
+          menu.style.setProperty('position', 'absolute', 'important');
+          menu.style.setProperty('top', '100%', 'important');
+          menu.style.setProperty('left', '0', 'important');
+          menu.style.setProperty('width', '100%', 'important');
+          menu.style.setProperty('min-height', '300px', 'important');
+          menu.style.setProperty('background', 'white', 'important');
+          menu.style.setProperty('z-index', '99999', 'important');
+          menu.style.setProperty('border', '2px solid #ff4747', 'important');
+          menu.style.setProperty('box-shadow', '0 4px 12px rgba(0,0,0,0.15)', 'important');
+        });
+        
+        element.addEventListener('mouseleave', function() {
+          console.log(`Element ${index + 1} LEAVE - Mega menu HIDE`);
+          menu.style.setProperty('display', 'none', 'important');
+          menu.style.setProperty('visibility', 'hidden', 'important');
+          menu.style.setProperty('opacity', '0', 'important');
+        });
+      }
     });
   }
 });
