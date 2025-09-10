@@ -13,6 +13,7 @@
     display: flex !important;
 }
 
+
 /* Mega menu sidebar và content luôn ẩn, chỉ hiện khi có class .active hoặc hover/click */
 .alx-categories-sidebar,
 .alx-mega-menu {
@@ -23,22 +24,8 @@
     display: block !important;
 }
 @media (min-width: 990px) {
-    .alx-categories:hover .alx-categories-sidebar,
-    .alx-categories:hover .alx-mega-menu {
-        display: block;
-    }
-}
-
-/* Hiển thị sidebar và mega menu khi hover vào .alx-categories */
-.alx-categories-sidebar,
-.alx-mega-menu {
-    display: none;
-}
-@media (min-width: 990px) {
-    .alx-categories:hover .alx-categories-sidebar {
-        display: block;
-    }
-    .alx-categories:hover .alx-mega-menu {
+    .alx-categories:hover .alx-categories-sidebar:not(.active),
+    .alx-categories:hover .alx-mega-menu:not(.active) {
         display: block;
     }
 }
