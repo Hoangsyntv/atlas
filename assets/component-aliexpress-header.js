@@ -57,21 +57,25 @@ class AliExpressHeader extends HTMLElement {
   setupMegaMenu() {
     if (!this.categoriesDropdown) return;
 
-    // Categories trigger click/hover
-    this.categoriesTrigger?.addEventListener('click', this.toggleCategoriesMenu.bind(this));
+    // Categories trigger hover and click
     this.categoriesTrigger?.addEventListener('mouseenter', this.showCategoriesMenu.bind(this));
+    this.categoriesTrigger?.addEventListener('click', this.toggleCategoriesMenu.bind(this));
     
     // Categories dropdown hover
+    this.categoriesDropdown.addEventListener('mouseenter', this.showCategoriesMenu.bind(this));
     this.categoriesDropdown.addEventListener('mouseleave', this.hideCategoriesMenu.bind(this));
     
-    // Category items hover
+    // Category items hover - fix the index and data attribute matching
     this.categoriesItems.forEach((item, index) => {
-      item.addEventListener('mouseenter', () => this.showMegaPanel(index + 1));
+      const categoryIndex = index + 1; // 1-based indexing
+      item.setAttribute('data-category', categoryIndex);
+      
+      item.addEventListener('mouseenter', () => this.showMegaPanel(categoryIndex));
       item.addEventListener('click', (e) => {
         // If item has submenu, prevent navigation on mobile
-        if (item.dataset.category && window.innerWidth <= 990) {
+        if (window.innerWidth <= 990) {
           e.preventDefault();
-          this.showMegaPanel(index + 1);
+          this.showMegaPanel(categoryIndex);
         }
       });
     });
@@ -152,8 +156,8 @@ class AliExpressHeader extends HTMLElement {
     this.categoriesMenu?.setAttribute('aria-hidden', 'false');
     this.categoriesDropdown?.classList.add('active');
     
-    // Show first category by default
-    if (this.categoriesItems.length > 0) {
+    // Show first category panel by default
+    if (this.categoriesItems.length > 0 && this.megaMenuPanels.length > 0) {
       this.showMegaPanel(1);
     }
   }
@@ -171,15 +175,24 @@ class AliExpressHeader extends HTMLElement {
 
   showMegaPanel(categoryIndex) {
     // Hide all panels first
-    this.megaMenuPanels.forEach(panel => panel.style.display = 'none');
+    this.megaMenuPanels.forEach(panel => {
+      panel.style.display = 'none';
+      panel.style.opacity = '0';
+    });
+    
+    // Remove active class from all category items
     this.categoriesItems.forEach(item => item.classList.remove('active'));
     
     // Show the targeted panel
-    const targetPanel = this.querySelector(`[data-category="${categoryIndex}"]`);
-    const targetCategory = this.querySelector(`[data-category="${categoryIndex}"]`);
+    const targetPanel = this.querySelector(`.alx-mega-menu-panel[data-category="${categoryIndex}"]`);
+    const targetCategory = this.categoriesItems[categoryIndex - 1]; // 0-based array, 1-based categoryIndex
     
     if (targetPanel) {
       targetPanel.style.display = 'block';
+      // Use setTimeout to allow display change to take effect before opacity animation
+      setTimeout(() => {
+        targetPanel.style.opacity = '1';
+      }, 10);
     }
     
     if (targetCategory) {
