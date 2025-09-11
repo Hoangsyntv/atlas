@@ -43,6 +43,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+  var categoriesDropdown = document.querySelector('.alx-categories-dropdown');
+  var categoryItems = document.querySelectorAll('.alx-category-item');
+  var megaMenuPanels = document.querySelectorAll('.alx-mega-menu-panel');
+  if (categoriesDropdown && categoryItems.length && megaMenuPanels.length) {
+    categoryItems.forEach(function(item) {
+      item.addEventListener('mouseenter', function() {
+        var idx = item.getAttribute('data-category');
+        megaMenuPanels.forEach(function(panel) {
+          if (panel.getAttribute('data-category') === idx) {
+            panel.style.display = 'block';
+          } else {
+            panel.style.display = 'none';
+          }
+        });
+      });
+      item.addEventListener('click', function() {
+        var idx = item.getAttribute('data-category');
+        megaMenuPanels.forEach(function(panel) {
+          if (panel.getAttribute('data-category') === idx) {
+            panel.style.display = 'block';
+          } else {
+            panel.style.display = 'none';
+          }
+        });
+      });
+    });
+    categoriesDropdown.addEventListener('mouseleave', function() {
+      megaMenuPanels.forEach(function(panel) {
+        panel.style.display = 'none';
+      });
+    });
+  }
+});
+
+
 class QuantityInput extends HTMLElement {
   constructor() {
     super();
