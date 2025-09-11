@@ -20,61 +20,101 @@
 <script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>
 
 <script>
-// Immediate JavaScript fix for mega menu hover
+// SIMPLE & WORKING MEGA MENU
 document.addEventListener('DOMContentLoaded', function() {
-  const dropdown = document.querySelector('.alx-categories-dropdown');
+  console.log('=== CREATING SIMPLE MEGA MENU ===');
+  
   const trigger = document.querySelector('.alx-categories-trigger');
-  const menu = document.querySelector('.alx-categories-menu');
+  const dropdown = document.querySelector('.alx-categories-dropdown');
   
-  console.log('AliExpress mega menu debug:', {
-    dropdown: !!dropdown,
-    trigger: !!trigger, 
-    menu: !!menu
-  });
-  
-  if (menu) {
-    // Try both dropdown and trigger elements
-    [dropdown, trigger].forEach((element, index) => {
-      if (element) {
-        console.log(`Binding events to element ${index + 1}`);
-        
-        element.addEventListener('mouseenter', function() {
-          console.log(`Element ${index + 1} HOVER - Mega menu SHOW`);
-          
-          // Add active class for CSS-driven show/hide
-          dropdown.classList.add('active');
-          
-          // Backup JavaScript force show với position fixed
-          menu.style.setProperty('display', 'flex', 'important');
-          menu.style.setProperty('visibility', 'visible', 'important');
-          menu.style.setProperty('opacity', '1', 'important');
-          menu.style.setProperty('pointer-events', 'auto', 'important');
-          menu.style.setProperty('position', 'fixed', 'important');
-          menu.style.setProperty('top', 'var(--header-height, 80px)', 'important');
-          menu.style.setProperty('left', '0', 'important');
-          menu.style.setProperty('right', '0', 'important');
-          menu.style.setProperty('width', '100%', 'important');
-          menu.style.setProperty('margin', '0', 'important');
-          menu.style.setProperty('transform', 'translateY(0)', 'important');
-        });
-        
-        // Improved mouseleave with delay
-        element.addEventListener('mouseleave', function() {
-          setTimeout(() => {
-            // Check if mouse is still over dropdown area
-            if (!dropdown.matches(':hover')) {
-              console.log(`Element ${index + 1} LEAVE - Mega menu HIDE`);
-              dropdown.classList.remove('active');
-              
-              menu.style.setProperty('display', 'none', 'important');
-              menu.style.setProperty('visibility', 'hidden', 'important');
-              menu.style.setProperty('opacity', '0', 'important');
-              menu.style.setProperty('pointer-events', 'none', 'important');
-            }
-          }, 100); // 100ms delay to prevent flickering
-        });
-      }
+  if (trigger && dropdown) {
+    // Remove any existing mega menu
+    const existingMenu = dropdown.querySelector('.alx-categories-menu');
+    if (existingMenu) {
+      existingMenu.remove();
+    }
+    
+    // Create simple working mega menu
+    const simpleMenu = document.createElement('div');
+    simpleMenu.className = 'simple-mega-menu';
+    simpleMenu.innerHTML = `
+      <div style="background: white; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 1px solid #ddd;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+          <div>
+            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Sản phẩm hot</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 8px;"><a href="/collections/all" style="color: #333; text-decoration: none; font-size: 14px;">Tất cả sản phẩm</a></li>
+              <li style="margin-bottom: 8px;"><a href="/collections/new" style="color: #333; text-decoration: none; font-size: 14px;">Sản phẩm mới</a></li>
+              <li style="margin-bottom: 8px;"><a href="/collections/sale" style="color: #333; text-decoration: none; font-size: 14px;">Khuyến mãi</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Danh mục</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 8px;"><a href="/collections/electronics" style="color: #333; text-decoration: none; font-size: 14px;">Điện tử</a></li>
+              <li style="margin-bottom: 8px;"><a href="/collections/fashion" style="color: #333; text-decoration: none; font-size: 14px;">Thời trang</a></li>
+              <li style="margin-bottom: 8px;"><a href="/collections/home" style="color: #333; text-decoration: none; font-size: 14px;">Gia dụng</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Hỗ trợ</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 8px;"><a href="/pages/contact" style="color: #333; text-decoration: none; font-size: 14px;">Liên hệ</a></li>
+              <li style="margin-bottom: 8px;"><a href="/pages/shipping" style="color: #333; text-decoration: none; font-size: 14px;">Vận chuyển</a></li>
+              <li style="margin-bottom: 8px;"><a href="/pages/about" style="color: #333; text-decoration: none; font-size: 14px;">Về chúng tôi</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Position and style
+    Object.assign(simpleMenu.style, {
+      position: 'absolute',
+      top: '100%',
+      left: '0',
+      right: '0',
+      zIndex: '999999',
+      display: 'none',
+      visibility: 'hidden',
+      opacity: '0',
+      transition: 'opacity 0.3s ease, visibility 0.3s ease'
     });
+    
+    dropdown.appendChild(simpleMenu);
+    
+    // Simple show/hide events
+    let isShowing = false;
+    
+    function showMenu() {
+      isShowing = true;
+      simpleMenu.style.display = 'block';
+      setTimeout(() => {
+        simpleMenu.style.visibility = 'visible';
+        simpleMenu.style.opacity = '1';
+      }, 10);
+      console.log('✅ Simple mega menu shown');
+    }
+    
+    function hideMenu() {
+      isShowing = false;
+      simpleMenu.style.opacity = '0';
+      simpleMenu.style.visibility = 'hidden';
+      setTimeout(() => {
+        if (!isShowing) {
+          simpleMenu.style.display = 'none';
+        }
+      }, 300);
+      console.log('❌ Simple mega menu hidden');
+    }
+    
+    // Event listeners
+    trigger.addEventListener('mouseenter', showMenu);
+    dropdown.addEventListener('mouseleave', hideMenu);
+    
+    console.log('✅ Simple mega menu created successfully');
+  } else {
+    console.log('❌ Missing trigger or dropdown elements');
   }
 });
 </script>
