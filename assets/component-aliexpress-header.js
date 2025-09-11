@@ -12,10 +12,8 @@ class AliExpressHeader extends HTMLElement {
     this.setupMobileMenu();
     this.setupSearch();
     
-    // NUCLEAR FORCE - Generate content immediately on load
-    setTimeout(() => {
-      this.forceGenerateContent();
-    }, 100);
+    // TEMPLATE CONTENT ONLY - Don't override template with JavaScript
+    console.log('✅ AliExpress header loaded - using template content only');
   }
   
   forceGenerateContent() {
