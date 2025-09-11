@@ -34,42 +34,87 @@ document.addEventListener('DOMContentLoaded', function() {
       existingMenu.remove();
     }
     
-    // Create simple working mega menu
-    const simpleMenu = document.createElement('div');
-    simpleMenu.className = 'simple-mega-menu';
-    simpleMenu.innerHTML = `
-      <div style="background: white; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 1px solid #ddd;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-          <div>
-            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Sản phẩm hot</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="margin-bottom: 8px;"><a href="/collections/all" style="color: #333; text-decoration: none; font-size: 14px;">Tất cả sản phẩm</a></li>
-              <li style="margin-bottom: 8px;"><a href="/collections/new" style="color: #333; text-decoration: none; font-size: 14px;">Sản phẩm mới</a></li>
-              <li style="margin-bottom: 8px;"><a href="/collections/sale" style="color: #333; text-decoration: none; font-size: 14px;">Khuyến mãi</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Danh mục</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="margin-bottom: 8px;"><a href="/collections/electronics" style="color: #333; text-decoration: none; font-size: 14px;">Điện tử</a></li>
-              <li style="margin-bottom: 8px;"><a href="/collections/fashion" style="color: #333; text-decoration: none; font-size: 14px;">Thời trang</a></li>
-              <li style="margin-bottom: 8px;"><a href="/collections/home" style="color: #333; text-decoration: none; font-size: 14px;">Gia dụng</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 style="color: #ff4747; margin: 0 0 15px 0; font-size: 16px;">Hỗ trợ</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="margin-bottom: 8px;"><a href="/pages/contact" style="color: #333; text-decoration: none; font-size: 14px;">Liên hệ</a></li>
-              <li style="margin-bottom: 8px;"><a href="/pages/shipping" style="color: #333; text-decoration: none; font-size: 14px;">Vận chuyển</a></li>
-              <li style="margin-bottom: 8px;"><a href="/pages/about" style="color: #333; text-decoration: none; font-size: 14px;">Về chúng tôi</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    `;
+    // Create working mega menu with DOM methods
+    const workingMenu = document.createElement('div');
+    workingMenu.className = 'working-mega-menu';
+    
+    // Create container
+    const container = document.createElement('div');
+    container.style.cssText = 'background: white; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 1px solid #ddd;';
+    
+    // Create grid
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;';
+    
+    // Column 1 - Sản phẩm hot
+    const col1 = document.createElement('div');
+    const h1 = document.createElement('h4');
+    h1.textContent = 'Sản phẩm hot';
+    h1.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
+    col1.appendChild(h1);
+    
+    const links1 = [
+      { text: 'Tất cả sản phẩm', href: '/collections/all' },
+      { text: 'Sản phẩm mới', href: '/collections/new' },
+      { text: 'Khuyến mãi', href: '/collections/sale' }
+    ];
+    links1.forEach(link => {
+      const a = document.createElement('a');
+      a.textContent = link.text;
+      a.href = link.href;
+      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
+      col1.appendChild(a);
+    });
+    
+    // Column 2 - Danh mục
+    const col2 = document.createElement('div');
+    const h2 = document.createElement('h4');
+    h2.textContent = 'Danh mục';
+    h2.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
+    col2.appendChild(h2);
+    
+    const links2 = [
+      { text: 'Điện tử', href: '/collections/electronics' },
+      { text: 'Thời trang', href: '/collections/fashion' },
+      { text: 'Gia dụng', href: '/collections/home' }
+    ];
+    links2.forEach(link => {
+      const a = document.createElement('a');
+      a.textContent = link.text;
+      a.href = link.href;
+      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
+      col2.appendChild(a);
+    });
+    
+    // Column 3 - Hỗ trợ
+    const col3 = document.createElement('div');
+    const h3 = document.createElement('h4');
+    h3.textContent = 'Hỗ trợ';
+    h3.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
+    col3.appendChild(h3);
+    
+    const links3 = [
+      { text: 'Liên hệ', href: '/pages/contact' },
+      { text: 'Vận chuyển', href: '/pages/shipping' },
+      { text: 'Về chúng tôi', href: '/pages/about' }
+    ];
+    links3.forEach(link => {
+      const a = document.createElement('a');
+      a.textContent = link.text;
+      a.href = link.href;
+      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
+      col3.appendChild(a);
+    });
+    
+    // Assemble everything
+    grid.appendChild(col1);
+    grid.appendChild(col2);
+    grid.appendChild(col3);
+    container.appendChild(grid);
+    workingMenu.appendChild(container);
     
     // Position and style - USING FIXED POSITION
-    Object.assign(simpleMenu.style, {
+    Object.assign(workingMenu.style, {
       position: 'fixed',
       top: '120px',
       left: '0',
@@ -81,31 +126,31 @@ document.addEventListener('DOMContentLoaded', function() {
       transition: 'opacity 0.3s ease, visibility 0.3s ease'
     });
     
-    document.body.appendChild(simpleMenu);
+    document.body.appendChild(workingMenu);
     
     // Simple show/hide events
     let isShowing = false;
     
     function showMenu() {
       isShowing = true;
-      simpleMenu.style.display = 'block';
+      workingMenu.style.display = 'block';
       setTimeout(() => {
-        simpleMenu.style.visibility = 'visible';
-        simpleMenu.style.opacity = '1';
+        workingMenu.style.visibility = 'visible';
+        workingMenu.style.opacity = '1';
       }, 10);
-      console.log('✅ Simple mega menu shown');
+      console.log('✅ Working mega menu shown');
     }
     
     function hideMenu() {
       isShowing = false;
-      simpleMenu.style.opacity = '0';
-      simpleMenu.style.visibility = 'hidden';
+      workingMenu.style.opacity = '0';
+      workingMenu.style.visibility = 'hidden';
       setTimeout(() => {
         if (!isShowing) {
-          simpleMenu.style.display = 'none';
+          workingMenu.style.display = 'none';
         }
       }, 300);
-      console.log('❌ Simple mega menu hidden');
+      console.log('❌ Working mega menu hidden');
     }
     
     // Event listeners
