@@ -19,58 +19,36 @@ class AliExpressHeader extends HTMLElement {
   }
   
   forceGenerateContent() {
-    const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
-    if (contentArea) {
-      // Force content area visible immediately
-      contentArea.style.cssText = `
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        background: white !important;
-        padding: 20px !important;
-        z-index: 2147483647 !important;
-        min-height: 300px !important;
-        width: 100% !important;
-        overflow: visible !important;
-        position: relative !important;
-        border: 3px solid blue !important;
-      `;
-      
-      // FORCE rich content always
-      contentArea.innerHTML = `
-        <div style="display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; padding: 20px !important; background: white !important; color: black !important;">
-          <div style="color: black !important;">
-            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Danh mục sản phẩm</h3>
-            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
-              <li style="margin-bottom: 8px !important;"><a href="/collections/all" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tất cả sản phẩm</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/collections/new" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Sản phẩm mới</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/collections/sale" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Khuyến mãi</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/collections/featured" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Nổi bật</a></li>
-            </ul>
-          </div>
-          <div style="color: black !important;">
-            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Hỗ trợ khách hàng</h3>
-            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
-              <li style="margin-bottom: 8px !important;"><a href="/pages/contact" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Liên hệ</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/shipping" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Vận chuyển</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/returns" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Đổi trả</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/faq" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">FAQ</a></li>
-            </ul>
-          </div>
-          <div style="color: black !important;">
-            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Thông tin</h3>
-            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
-              <li style="margin-bottom: 8px !important;"><a href="/pages/about" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Về chúng tôi</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/blog" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Blog</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/news" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tin tức</a></li>
-              <li style="margin-bottom: 8px !important;"><a href="/pages/search" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tìm kiếm</a></li>
-            </ul>
-          </div>
-        </div>
-      `;
-      
-      console.log('NUCLEAR CONTENT INJECTED ON PAGE LOAD');
-    }
+    // ULTIMATE FORCE - Find and override ALL possible content areas
+    const contentAreas = [
+      this.categoriesMenu?.querySelector('.alx-mega-menu-content'),
+      document.querySelector('.alx-mega-menu-content'),
+      document.querySelector('.mega-menu__panel'),
+      document.querySelector('.alx-mega-menu-panel')
+    ];
+    
+    const richContent = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:20px;background:white;color:black;"><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Danh muc san pham</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/collections/all" style="color:black;text-decoration:none;display:block;">LEVEL 3: Tat ca san pham</a></li><li style="margin:5px 0;"><a href="/collections/new" style="color:black;text-decoration:none;display:block;">LEVEL 3: San pham moi</a></li><li style="margin:5px 0;"><a href="/collections/sale" style="color:black;text-decoration:none;display:block;">LEVEL 3: Khuyen mai</a></li></ul></div><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Ho tro khach hang</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/pages/contact" style="color:black;text-decoration:none;display:block;">LEVEL 3: Lien he</a></li><li style="margin:5px 0;"><a href="/pages/shipping" style="color:black;text-decoration:none;display:block;">LEVEL 3: Van chuyen</a></li><li style="margin:5px 0;"><a href="/pages/returns" style="color:black;text-decoration:none;display:block;">LEVEL 3: Doi tra</a></li></ul></div><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Thong tin</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/pages/about" style="color:black;text-decoration:none;display:block;">LEVEL 3: Ve chung toi</a></li><li style="margin:5px 0;"><a href="/pages/blog" style="color:black;text-decoration:none;display:block;">LEVEL 3: Blog</a></li><li style="margin:5px 0;"><a href="/pages/news" style="color:black;text-decoration:none;display:block;">LEVEL 3: Tin tuc</a></li></ul></div></div>';
+    
+    contentAreas.forEach((contentArea, index) => {
+      if (contentArea) {
+        // Force visible
+        contentArea.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;background:white!important;padding:20px!important;z-index:2147483647!important;min-height:300px!important;width:100%!important;overflow:visible!important;position:relative!important;border:3px solid blue!important;';
+        
+        // Clear and inject content
+        contentArea.innerHTML = richContent;
+        
+        console.log('NUCLEAR CONTENT INJECTED - Area', index);
+      }
+    });
+    
+    // Also try to force content every 2 seconds
+    setInterval(() => {
+      contentAreas.forEach((area) => {
+        if (area && area.innerHTML.length < 500) {
+          area.innerHTML = richContent;
+        }
+      });
+    }, 2000);
   }
 
   initializeElements() {
