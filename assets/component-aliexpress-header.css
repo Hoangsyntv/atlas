@@ -444,12 +444,11 @@
 }
 
 /* Mega menu panel styling - FORCE VISIBLE */
+
+/* Mega menu panel styling - layout only, display/visibility controlled by JS */
 .mega-menu__panel,
 .alx-mega-menu-panel {
   padding: 20px !important;
-  display: block;
-  opacity: 1 !important;
-  visibility: visible !important;
   background: var(--alx-bg-white) !important;
   z-index: 2147483647 !important;
   position: relative !important;
@@ -487,16 +486,7 @@
 }
 
 /* ULTIMATE NUCLEAR OVERRIDE - Force visible at all times */
-.alx-mega-menu-panel,
-.mega-menu__panel {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  background: white !important;
-  border: 1px solid #ccc !important;
-  min-height: 200px !important;
-  color: black !important;
-}
+
 
 .alx-mega-menu-grid {
   display: grid !important;
