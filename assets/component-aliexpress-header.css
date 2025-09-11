@@ -473,17 +473,7 @@
 }
 
 /* NUCLEAR OVERRIDE - Force all mega menu content visible */
-.alx-categories-menu.active .alx-mega-menu-panel,
-.alx-categories-menu.active .mega-menu__panel,
-.alx-categories-dropdown.active .alx-mega-menu-panel,
-.alx-categories-dropdown.active .mega-menu__panel {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  background: white !important;
-  border: 2px solid red !important;
-  min-height: 300px !important;
-}
+
 
 /* ULTIMATE NUCLEAR OVERRIDE - Force visible at all times */
 
@@ -504,24 +494,9 @@
 }
 
 /* Force all mega menu text elements visible */
-.alx-mega-menu-content *,
-.alx-mega-menu-panel *,
-.mega-menu__panel * {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: var(--alx-text-color) !important;
-}
 
-.alx-mega-menu-heading,
-.alx-mega-menu-list,
-.alx-mega-menu-item,
-.alx-mega-menu-link {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: var(--alx-text-color) !important;
-}
+
+
 
 .alx-mega-menu-heading {
   margin: 0 0 12px 0 !important;
