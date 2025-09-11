@@ -12,8 +12,8 @@ class AliExpressHeader extends HTMLElement {
     this.setupMobileMenu();
     this.setupSearch();
     
-    // TEMPLATE CONTENT ONLY - Don't override template with JavaScript
-    console.log('✅ AliExpress header loaded - using template content only');
+    // TEMPLATE CONTENT ONLY v2 - Don't override template with JavaScript
+    console.log('✅ AliExpress header loaded v2 - using template content only - NO NUCLEAR INJECTION');
   }
   
   forceGenerateContent() {
