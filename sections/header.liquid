@@ -536,17 +536,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <!-- Mega Menu Content -->
             <div class="alx-mega-menu-content">
-              {%- for link in section.settings.menu.links -%}
-                {%- if link.links != blank -%}
-                  <div class="alx-mega-menu-panel" data-category="{{ forloop.index }}">
-                    <div class="alx-mega-menu-grid">
-                      {%- for childlink in link.links -%}
-                        <div class="alx-mega-menu-column">
-                          <h4 class="alx-mega-menu-heading">
-                            <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
-                          </h4>
-                          {%- if childlink.links != blank -%}
-                            <ul class="alx-mega-menu-list">
+              {%- if section.settings.menu.links.size > 0 -%}
+                {%- for link in section.settings.menu.links -%}
+                  {%- if link.links != blank -%}
+                    <div class="alx-mega-menu-panel" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                      <div class="alx-mega-menu-grid">
+                        {%- for childlink in link.links -%}
+                          <div class="alx-mega-menu-column">
+                            <h4 class="alx-mega-menu-heading">
+                              <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                            </h4>
+                            {%- if childlink.links != blank -%}
+                              <ul class="alx-mega-menu-list">
                               {%- for grandchildlink in childlink.links -%}
                                 <li class="alx-mega-menu-item">
                                   <a href="{{ grandchildlink.url }}" class="alx-mega-menu-link">
@@ -562,6 +563,41 @@ document.addEventListener('DOMContentLoaded', function() {
                   </div>
                 {%- endif -%}
               {%- endfor -%}
+              {%- else -%}
+                <!-- Fallback content when no menu configured -->
+                <div class="alx-mega-menu-panel" data-category="1" style="display: block;">
+                  <div class="alx-mega-menu-grid">
+                    <div class="alx-mega-menu-column">
+                      <h4 class="alx-mega-menu-heading">Danh mục sản phẩm</h4>
+                      <ul class="alx-mega-menu-list">
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections/all" class="alx-mega-menu-link">Tất cả sản phẩm</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections" class="alx-mega-menu-link">Bộ sưu tập</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/pages/about" class="alx-mega-menu-link">Về chúng tôi</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="alx-mega-menu-column">
+                      <h4 class="alx-mega-menu-heading">Hỗ trợ</h4>
+                      <ul class="alx-mega-menu-list">
+                        <li class="alx-mega-menu-item">
+                          <a href="/pages/contact" class="alx-mega-menu-link">Liên hệ</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/pages/shipping" class="alx-mega-menu-link">Chính sách vận chuyển</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/pages/returns" class="alx-mega-menu-link">Đổi trả</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
             </div>
           </div>
         </div>
