@@ -3,16 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
   var categories = document.querySelector('.alx-categories');
   var categoriesBtn = document.querySelector('.alx-categories-btn');
   var categoryItems = document.querySelectorAll('.alx-category-item');
-  var megaMenuContents = document.querySelectorAll('.alx-mega-menu-content');
+  var megaMenuPanels = document.querySelectorAll('.alx-mega-menu-panel');
   // Mở sidebar/mega menu khi click All Categories
   if (categories && categoriesBtn) {
     categoriesBtn.addEventListener('click', function(e) {
       e.preventDefault();
       categories.classList.toggle('active');
-      // Nếu vừa mở thì ẩn hết menu con
+      // Nếu vừa mở thì ẩn hết panel con
       if (categories.classList.contains('active')) {
-        megaMenuContents.forEach(function(content) {
-          content.classList.add('hidden');
+        megaMenuPanels.forEach(function(panel) {
+          panel.style.display = 'none';
         });
       }
     });
@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     categoryItems.forEach(function(item) {
       item.addEventListener('click', function(e) {
         e.stopPropagation();
-        var idx = item.getAttribute('data-index');
-        megaMenuContents.forEach(function(content) {
-          if (content.getAttribute('data-index') === idx) {
-            content.classList.remove('hidden');
+        var idx = item.getAttribute('data-category');
+        megaMenuPanels.forEach(function(panel) {
+          if (panel.getAttribute('data-category') === idx) {
+            panel.style.display = 'block';
           } else {
-            content.classList.add('hidden');
+            panel.style.display = 'none';
           }
         });
       });
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.alx-categories')) {
         categories.classList.remove('active');
-        megaMenuContents.forEach(function(content) {
-          content.classList.add('hidden');
+        megaMenuPanels.forEach(function(panel) {
+          panel.style.display = 'none';
         });
       }
     });
