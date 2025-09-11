@@ -19,7 +19,7 @@ class AliExpressHeader extends HTMLElement {
   }
   
   forceGenerateContent() {
-    // ULTIMATE FORCE - Find and override ALL possible content areas
+    // PRESERVE SHOPIFY MENU - Don't override, just make visible
     const contentAreas = [
       this.categoriesMenu?.querySelector('.alx-mega-menu-content'),
       document.querySelector('.alx-mega-menu-content'),
@@ -27,28 +27,36 @@ class AliExpressHeader extends HTMLElement {
       document.querySelector('.alx-mega-menu-panel')
     ];
     
-    const richContent = '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;padding:20px;background:white;color:black;"><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Danh muc san pham</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/collections/all" style="color:black;text-decoration:none;display:block;">LEVEL 3: Tat ca san pham</a></li><li style="margin:5px 0;"><a href="/collections/new" style="color:black;text-decoration:none;display:block;">LEVEL 3: San pham moi</a></li><li style="margin:5px 0;"><a href="/collections/sale" style="color:black;text-decoration:none;display:block;">LEVEL 3: Khuyen mai</a></li></ul></div><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Ho tro khach hang</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/pages/contact" style="color:black;text-decoration:none;display:block;">LEVEL 3: Lien he</a></li><li style="margin:5px 0;"><a href="/pages/shipping" style="color:black;text-decoration:none;display:block;">LEVEL 3: Van chuyen</a></li><li style="margin:5px 0;"><a href="/pages/returns" style="color:black;text-decoration:none;display:block;">LEVEL 3: Doi tra</a></li></ul></div><div><h3 style="color:red;margin:0 0 10px 0;font-weight:bold;">LEVEL 2: Thong tin</h3><ul style="list-style:none;padding:0;margin:0;"><li style="margin:5px 0;"><a href="/pages/about" style="color:black;text-decoration:none;display:block;">LEVEL 3: Ve chung toi</a></li><li style="margin:5px 0;"><a href="/pages/blog" style="color:black;text-decoration:none;display:block;">LEVEL 3: Blog</a></li><li style="margin:5px 0;"><a href="/pages/news" style="color:black;text-decoration:none;display:block;">LEVEL 3: Tin tuc</a></li></ul></div></div>';
-    
     contentAreas.forEach((contentArea, index) => {
       if (contentArea) {
-        // Force visible
-        contentArea.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;background:white!important;padding:20px!important;z-index:2147483647!important;min-height:300px!important;width:100%!important;overflow:visible!important;position:relative!important;border:3px solid blue!important;';
+        // Force visible but PRESERVE existing content
+        contentArea.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;background:white!important;padding:20px!important;z-index:2147483647!important;min-height:200px!important;width:100%!important;overflow:visible!important;position:relative!important;border:3px solid blue!important;';
         
-        // Clear and inject content
-        contentArea.innerHTML = richContent;
+        // Force all child elements visible too
+        const allChildren = contentArea.querySelectorAll('*');
+        allChildren.forEach(child => {
+          child.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;color:black!important;';
+        });
         
-        console.log('NUCLEAR CONTENT INJECTED - Area', index);
+        // Make headings red and links black for clarity
+        const headings = contentArea.querySelectorAll('h1,h2,h3,h4,h5,h6,.alx-mega-menu-heading');
+        headings.forEach(heading => {
+          heading.style.cssText = 'color:red!important;font-weight:bold!important;margin:0 0 10px 0!important;display:block!important;';
+        });
+        
+        const links = contentArea.querySelectorAll('a,.alx-mega-menu-link');
+        links.forEach(link => {
+          link.style.cssText = 'color:black!important;text-decoration:none!important;display:block!important;padding:4px 0!important;';
+        });
+        
+        const lists = contentArea.querySelectorAll('ul,.alx-mega-menu-list');
+        lists.forEach(list => {
+          list.style.cssText = 'list-style:none!important;padding:0!important;margin:0!important;display:block!important;';
+        });
+        
+        console.log('SHOPIFY MENU PRESERVED AND MADE VISIBLE - Area', index);
       }
     });
-    
-    // Also try to force content every 2 seconds
-    setInterval(() => {
-      contentAreas.forEach((area) => {
-        if (area && area.innerHTML.length < 500) {
-          area.innerHTML = richContent;
-        }
-      });
-    }, 2000);
   }
 
   initializeElements() {
