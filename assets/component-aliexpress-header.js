@@ -156,6 +156,78 @@ class AliExpressHeader extends HTMLElement {
     this.categoriesMenu?.setAttribute('aria-hidden', 'false');
     this.categoriesDropdown?.classList.add('active');
     
+    // FORCE MENU VISIBILITY FIRST
+    if (this.categoriesMenu) {
+      this.categoriesMenu.style.cssText = `
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+        z-index: 2147483647 !important;
+      `;
+    }
+    
+    // ALWAYS GENERATE CONTENT - NO CONDITIONS
+    const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
+    if (contentArea) {
+      // Force content area visibility
+      contentArea.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: white !important;
+        padding: 20px !important;
+        z-index: 2147483647 !important;
+        min-height: 300px !important;
+      `;
+      
+      // ALWAYS inject content (remove the condition)
+      contentArea.innerHTML = `
+        <div class="alx-mega-menu-grid" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 30px !important; padding: 20px !important; background: white !important;">
+          <div class="alx-mega-menu-column" style="color: black !important;">
+            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Danh mục sản phẩm</h4>
+            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/all" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tất cả sản phẩm</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/new" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Sản phẩm mới</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/sale" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Khuyến mãi</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/featured" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Nổi bật</a></li>
+            </ul>
+          </div>
+          <div class="alx-mega-menu-column" style="color: black !important;">
+            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Hỗ trợ khách hàng</h4>
+            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/contact" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Liên hệ</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/shipping" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Vận chuyển</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/returns" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Đổi trả</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/faq" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="alx-mega-menu-column" style="color: black !important;">
+            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Thông tin</h4>
+            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/about" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Về chúng tôi</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/blog" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Blog</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/news" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tin tức</a></li>
+              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/search" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tìm kiếm</a></li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+    
+    // NUCLEAR FORCE ALL PANELS VISIBLE IMMEDIATELY
+    this.megaMenuPanels = this.categoriesMenu?.querySelectorAll('.alx-mega-menu-panel, .mega-menu__panel') || [];
+    this.megaMenuPanels.forEach(panel => {
+      panel.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: white !important;
+        padding: 20px !important;
+        z-index: 2147483647 !important;
+        color: black !important;
+      `;
+    });
+    
     // Show first category panel by default
     if (this.categoriesItems.length > 0 && this.megaMenuPanels.length > 0) {
       this.showMegaPanel(1);
@@ -174,25 +246,36 @@ class AliExpressHeader extends HTMLElement {
   }
 
   showMegaPanel(categoryIndex) {
-    // Hide all panels first
+    // NUCLEAR FORCE - Show ALL panels always
     this.megaMenuPanels.forEach(panel => {
-      panel.style.display = 'none';
-      panel.style.opacity = '0';
+      panel.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: var(--alx-bg-white) !important;
+        padding: 20px !important;
+        z-index: 2147483647 !important;
+        color: var(--alx-text-color) !important;
+      `;
     });
     
     // Remove active class from all category items
     this.categoriesItems.forEach(item => item.classList.remove('active'));
     
-    // Show the targeted panel
-    const targetPanel = this.querySelector(`.alx-mega-menu-panel[data-category="${categoryIndex}"]`);
-    const targetCategory = this.categoriesItems[categoryIndex - 1]; // 0-based array, 1-based categoryIndex
+    // Show the targeted panel with NUCLEAR force
+    const targetPanel = this.querySelector(`.alx-mega-menu-panel[data-category="${categoryIndex}"], .mega-menu__panel[data-category="${categoryIndex}"]`);
+    const targetCategory = this.categoriesItems[categoryIndex - 1];
     
     if (targetPanel) {
-      targetPanel.style.display = 'block';
-      // Use setTimeout to allow display change to take effect before opacity animation
-      setTimeout(() => {
-        targetPanel.style.opacity = '1';
-      }, 10);
+      targetPanel.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: var(--alx-bg-white) !important;
+        padding: 20px !important;
+        z-index: 2147483647 !important;
+        color: var(--alx-text-color) !important;
+      `;
     }
     
     if (targetCategory) {
@@ -485,6 +568,12 @@ class AliExpressLocaleSelector extends HTMLElement {
 
 // Initialize components when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  // NUCLEAR Z-INDEX FORCE - Apply max z-index to mega menu
+  const megaMenuPanels = document.querySelectorAll('.alx-mega-menu-panel, .alx-mega-menu-content, .alx-categories-menu');
+  megaMenuPanels.forEach(panel => {
+    panel.style.zIndex = '2147483647'; // NUCLEAR Z-INDEX
+  });
+  
   // Define custom elements
   if (!customElements.get('aliexpress-header')) {
     customElements.define('aliexpress-header', AliExpressHeader);
@@ -501,8 +590,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize header if it exists
   const headerElement = document.querySelector('.alx-header');
   if (headerElement && !headerElement.classList.contains('initialized')) {
-    new AliExpressHeader();
-    headerElement.classList.add('initialized');
+    try {
+      new AliExpressHeader();
+      headerElement.classList.add('initialized');
+      // Header initialized successfully
+    } catch (error) {
+      console.error('❌ AliExpress Header initialization failed:', error);
+    }
   }
 });
 

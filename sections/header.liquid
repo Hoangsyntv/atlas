@@ -17,203 +17,9 @@
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
-{% comment %}<script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>{% endcomment %}
+<script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>
 
-<script>
-// FIXED MEGA MENU - Show actual content instead of hidden
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('=== FIXING MEGA MENU VISIBILITY ===');
-  
-  const trigger = document.querySelector('.alx-categories-trigger');
-  const dropdown = document.querySelector('.alx-categories-dropdown');
-  const menu = document.querySelector('.alx-categories-menu');
-  
-  if (trigger && dropdown && menu) {
-    console.log('✅ Found mega menu elements');
-    
-    // Make sure the existing menu is visible and styled properly
-    menu.style.cssText = `
-      position: fixed !important;
-      top: 120px !important;
-      left: 0 !important;
-      right: 0 !important;
-      background: white !important;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-      border: 1px solid #ddd !important;
-      z-index: 999999 !important;
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      transition: opacity 0.3s ease, visibility 0.3s ease !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      min-height: 400px !important;
-    `;
-    
-    // Style the content area to ensure it's visible
-    const contentArea = menu.querySelector('.alx-mega-menu-content');
-    if (contentArea) {
-      contentArea.style.cssText = `
-        background: white !important;
-        padding: 30px !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      `;
-      console.log('✅ Fixed content area visibility');
-    }
-    
-    // Style the sidebar to ensure it's visible
-    const sidebar = menu.querySelector('.alx-categories-sidebar');
-    if (sidebar) {
-      sidebar.style.cssText = `
-        background: white !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 280px !important;
-        border-right: 1px solid #e0e0e0 !important;
-      `;
-      console.log('✅ Fixed sidebar visibility');
-    }
-    
-    // Style all menu panels to be visible
-    const panels = menu.querySelectorAll('.alx-mega-menu-panel');
-    panels.forEach((panel, index) => {
-      panel.style.cssText = `
-        display: ${index === 0 ? 'block' : 'none'} !important;
-        background: white !important;
-        padding: 20px !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      `;
-    });
-    
-    let isShowing = false;
-    
-    function showMenu() {
-      isShowing = true;
-      menu.style.display = 'flex !important';
-      setTimeout(() => {
-        menu.style.visibility = 'visible !important';
-        menu.style.opacity = '1 !important';
-      }, 10);
-      console.log('✅ Mega menu shown with content visible');
-    }
-    
-    function hideMenu() {
-      isShowing = false;
-      menu.style.opacity = '0 !important';
-      menu.style.visibility = 'hidden !important';
-      setTimeout(() => {
-        if (!isShowing) {
-          menu.style.display = 'none !important';
-        }
-      }, 300);
-      console.log('❌ Mega menu hidden');
-    }
-    
-    // Event listeners
-    trigger.addEventListener('mouseenter', showMenu);
-    dropdown.addEventListener('mouseleave', hideMenu);
-    
-    console.log('✅ Mega menu fixed - content should now be visible');
-  } else {
-    console.log('❌ Missing mega menu elements:', { trigger: !!trigger, dropdown: !!dropdown, menu: !!menu });
-  }
-});
-</script>
 
-{% comment %} Header styles {% endcomment %}
-<style>
-  /* MEGA MENU CONTROLLED BY JAVASCRIPT - NO CSS HOVER */
-  .alx-categories-menu {
-    /* Basic structure - positioning handled by JS */
-    background: white;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    border: 1px solid #ddd;
-    z-index: 999999;
-    display: flex;
-    /* All positioning and visibility handled by JavaScript */
-  }
-  
-  .alx-categories-dropdown {
-    position: relative !important;
-    z-index: 100000 !important;
-  }
-  
-  /* Ensure mega menu bar has proper stacking context */
-  .alx-mega-menu-bar {
-    position: relative !important;
-    z-index: 99998 !important;
-    background: white !important;
-    border-bottom: 1px solid #e0e0e0 !important;
-  }
-  
-  /* Fix header stacking to not conflict */
-  .alx-header {
-    position: relative !important;
-    z-index: 99997 !important;
-  }
-  
-  .alx-categories-trigger {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    padding: 12px 20px !important;
-    background: #ff4747 !important;
-    color: white !important;
-    border: none !important;
-    cursor: pointer !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  .alx-categories-trigger:hover {
-    background: #e73c3c !important;
-  }
-  
-  .alx-categories-sidebar {
-    width: 280px !important;
-    background: white !important;
-    border-right: 1px solid #e0e0e0 !important;
-  }
-  
-  .alx-categories-list {
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  .alx-category-item {
-    border-bottom: 1px solid #f5f5f5 !important;
-  }
-  
-  .alx-category-link {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 12px 16px !important;
-    color: #333 !important;
-    text-decoration: none !important;
-    font-size: 14px !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  .alx-category-link:hover {
-    background: #f9f9f9 !important;
-    color: #ff4747 !important;
-  }
-  
-  /* Force mega menu content to display */
-  .alx-mega-menu-content {
-    background: white !important;
-    border: 1px solid #e0e0e0 !important;
-    padding: 20px !important;
-    min-width: 600px !important;
-    flex: 1 !important;
-  }
 
   header-drawer {
     justify-self: start;
@@ -541,27 +347,52 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="alx-categories-menu" id="alx-categories-menu">
             <div class="alx-categories-sidebar">
               <ul class="alx-categories-list">
-                {%- for link in section.settings.menu.links -%}
-                  <li class="alx-category-item" data-category="{{ forloop.index }}">
-                    <a href="{{ link.url }}" class="alx-category-link">
-                      <span class="alx-category-title">{{ link.title | escape }}</span>
-                      {%- if link.links != blank -%}
-                        <svg class="alx-icon alx-icon--arrow" width="16" height="16" viewBox="0 0 16 16">
-                          <path d="M6 4l4 4-4 4"/>
-                        </svg>
-                      {%- endif -%}
+                {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+                  {%- for link in section.settings.menu.links -%}
+                    <li class="alx-category-item" data-category="{{ forloop.index }}">
+                      <a href="{{ link.url }}" class="alx-category-link">
+                        <span class="alx-category-title">{{ link.title | escape }}</span>
+                        {%- if link.links != blank -%}
+                          <svg class="alx-icon alx-icon--arrow" width="16" height="16" viewBox="0 0 16 16">
+                            <path d="M6 4l4 4-4 4"/>
+                          </svg>
+                        {%- endif -%}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <!-- FALLBACK SIDEBAR CATEGORIES -->
+                  <li class="alx-category-item active" data-category="1">
+                    <a href="/collections/all" class="alx-category-link">
+                      <span class="alx-category-title">Tất cả sản phẩm</span>
+                      <svg class="alx-icon alx-icon--arrow" width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M6 4l4 4-4 4"/>
+                      </svg>
                     </a>
                   </li>
-                {%- endfor -%}
+                  <li class="alx-category-item" data-category="2">
+                    <a href="/collections" class="alx-category-link">
+                      <span class="alx-category-title">Bộ sưu tập</span>
+                      <svg class="alx-icon alx-icon--arrow" width="16" height="16" viewBox="0 0 16 16">
+                        <path d="M6 4l4 4-4 4"/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li class="alx-category-item" data-category="3">
+                    <a href="/pages/about" class="alx-category-link">
+                      <span class="alx-category-title">Về chúng tôi</span>
+                    </a>
+                  </li>
+                {%- endif -%}
               </ul>
             </div>
 
             <!-- Mega Menu Content -->
             <div class="alx-mega-menu-content">
-              {%- if section.settings.menu.links.size > 0 -%}
+              {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
                 {%- for link in section.settings.menu.links -%}
                   {%- if link.links != blank -%}
-                    <div class="alx-mega-menu-panel" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+                    <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-{{ link.title | handleize }}" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %}; z-index: 2147483647;">
                       <div class="alx-mega-menu-grid">
                         {%- for childlink in link.links -%}
                           <div class="alx-mega-menu-column">
@@ -582,12 +413,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                       {%- endfor -%}
                     </div>
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
+                  {%- endif -%}
+                {%- endfor -%}
               {%- else -%}
-                <!-- Fallback content when no menu configured -->
-                <div class="alx-mega-menu-panel" data-category="1" style="display: block;">
+                <!-- ALWAYS SHOW FALLBACK CONTENT - Menu not configured -->
+                <div id="MegaMenu-Content-1" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-fallback" data-category="1" style="display: block !important; visibility: visible !important; opacity: 1 !important; background: white !important; padding: 20px !important; z-index: 2147483647 !important;">
                   <div class="alx-mega-menu-grid">
                     <div class="alx-mega-menu-column">
                       <h4 class="alx-mega-menu-heading">Danh mục sản phẩm</h4>
@@ -601,10 +431,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li class="alx-mega-menu-item">
                           <a href="/pages/about" class="alx-mega-menu-link">Về chúng tôi</a>
                         </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/search" class="alx-mega-menu-link">Tìm kiếm</a>
+                        </li>
                       </ul>
                     </div>
                     <div class="alx-mega-menu-column">
-                      <h4 class="alx-mega-menu-heading">Hỗ trợ</h4>
+                      <h4 class="alx-mega-menu-heading">Hỗ trợ khách hàng</h4>
                       <ul class="alx-mega-menu-list">
                         <li class="alx-mega-menu-item">
                           <a href="/pages/contact" class="alx-mega-menu-link">Liên hệ</a>
@@ -614,6 +447,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         </li>
                         <li class="alx-mega-menu-item">
                           <a href="/pages/returns" class="alx-mega-menu-link">Đổi trả</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/pages/faq" class="alx-mega-menu-link">FAQ</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="alx-mega-menu-column">
+                      <h4 class="alx-mega-menu-heading">Khuyến mãi</h4>
+                      <ul class="alx-mega-menu-list">
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections/sale" class="alx-mega-menu-link">Sản phẩm giảm giá</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections/new" class="alx-mega-menu-link">Sản phẩm mới</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections/featured" class="alx-mega-menu-link">Nổi bật</a>
+                        </li>
+                        <li class="alx-mega-menu-item">
+                          <a href="/collections/bestseller" class="alx-mega-menu-link">Bán chạy</a>
                         </li>
                       </ul>
                     </div>
@@ -960,17 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
     {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
+    "sameAs": [],
     "url": {{ request.origin | append: page.url | json }}
   }
 </script>

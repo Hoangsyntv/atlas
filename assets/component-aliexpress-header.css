@@ -17,6 +17,18 @@
   --alx-z-mobile-menu: 1001;
 }
 
+/* Fix mega menu container overflow - from guide */
+.alx-mega-menu-bar,
+.alx-categories-dropdown,
+.alx-header {
+  overflow: visible !important;
+}
+
+.alx-categories-dropdown {
+  position: relative;
+  z-index: 50;
+}
+
 /* Header Container */
 .alx-header {
   background: var(--alx-bg-white);
@@ -352,22 +364,26 @@
 
 /* Categories Menu */
 .alx-categories-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: var(--alx-bg-white);
+  position: fixed !important;
+  top: 120px !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: var(--alx-bg-white) !important;
   box-shadow: var(--alx-shadow);
   border: 1px solid var(--alx-border-color);
-  display: flex;
+  display: flex !important;
   visibility: hidden;
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(0) !important;
   transition: all 0.2s ease;
-  z-index: var(--alx-z-mega-menu);
+  z-index: 2147483647 !important;
   pointer-events: none;
+  min-height: 400px !important;
+  overflow: visible !important;
 }
 
-.alx-categories-dropdown:hover .alx-categories-menu {
+/* Mega menu visibility controlled by JavaScript only */
+.alx-categories-dropdown.active .alx-categories-menu {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
@@ -379,6 +395,9 @@
   width: 280px;
   background: var(--alx-bg-white);
   border-right: 1px solid var(--alx-border-color);
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .alx-categories-list {
@@ -410,37 +429,75 @@
 
 /* Mega Menu Content */
 .alx-mega-menu-content {
-  background: var(--alx-bg-white);
+  background: var(--alx-bg-white) !important;
   box-shadow: var(--alx-shadow);
   border: 1px solid var(--alx-border-color);
   border-left: none;
-  min-width: 600px;
-  max-width: 800px;
-  flex: 1;
+  min-width: 600px !important;
+  max-width: none !important;
+  flex: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  padding: 20px !important;
 }
 
-/* Mega menu panel styling */
+/* Mega menu panel styling - FORCE VISIBLE */
+.mega-menu__panel,
 .alx-mega-menu-panel {
-  padding: 20px;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  padding: 20px !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: var(--alx-bg-white) !important;
+  z-index: 2147483647 !important;
+  position: relative !important;
+  color: black !important;
+  font-size: 14px !important;
 }
 
 .alx-mega-menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 30px;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 30px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .alx-mega-menu-column {
-  min-width: 0;
+  min-width: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Force all mega menu text elements visible */
+.alx-mega-menu-content *,
+.alx-mega-menu-panel *,
+.mega-menu__panel * {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--alx-text-color) !important;
+}
+
+.alx-mega-menu-heading,
+.alx-mega-menu-list,
+.alx-mega-menu-item,
+.alx-mega-menu-link {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--alx-text-color) !important;
 }
 
 .alx-mega-menu-heading {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  font-weight: 600;
+  margin: 0 0 12px 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding-bottom: 8px !important;
 }
 
 .alx-mega-menu-heading a {
@@ -464,15 +521,20 @@
 }
 
 .alx-mega-menu-link {
-  color: var(--alx-text-light);
-  text-decoration: none;
-  font-size: 13px;
-  line-height: 1.4;
-  transition: var(--alx-transition);
+  color: var(--alx-text-light) !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  padding: 6px 8px !important;
+  display: block !important;
+  transition: var(--alx-transition) !important;
+  border-radius: 4px !important;
 }
 
 .alx-mega-menu-link:hover {
-  color: var(--alx-primary-color);
+  color: var(--alx-primary-color) !important;
+  background: #f8f9fa !important;
+  transform: translateX(2px) !important;
 }
 
 /* Mobile Menu Trigger */
