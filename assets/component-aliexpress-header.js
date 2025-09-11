@@ -200,50 +200,37 @@ class AliExpressHeader extends HTMLElement {
     this.categoriesMenu?.setAttribute('aria-hidden', 'false');
     this.categoriesDropdown?.classList.add('active');
     
-    // FORCE MENU VISIBILITY FIRST
-    if (this.categoriesMenu) {
-      this.categoriesMenu.style.cssText = `
-        visibility: visible !important;
-        opacity: 1 !important;
-        display: block !important;
-        z-index: 2147483647 !important;
-      `;
-    }
-    
-    // Show existing HTML content instead of overriding it
-    const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
-    if (contentArea) {
-      // Force content area visibility only
-      contentArea.style.cssText = `
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        background: white !important;
-        padding: 20px !important;
-        z-index: 2147483647 !important;
-        min-height: 300px !important;
-        width: 100% !important;
-        overflow: visible !important;
-        position: relative !important;
-      `;
+    // Enhanced mega menu - enhance existing HTML instead of overriding
+    const menuContainer = this.categoriesMenu?.querySelector('.mega-menu-container');
+    if (menuContainer) {
+      // Add enhancement class
+      menuContainer.classList.add('enhanced-mega-menu');
       
-      // DO NOT override innerHTML - let HTML template render dynamic content
-      console.log('Mega menu content area made visible, using existing HTML content');
+      // Setup hover interactions for menu items
+      const menuItems = menuContainer.querySelectorAll('.menu-item');
+      menuItems.forEach((item, index) => {
+        // Add hover event listeners
+        item.addEventListener('mouseenter', () => {
+          // Remove active from other items
+          menuItems.forEach(otherItem => otherItem.classList.remove('active'));
+          // Add active to current item
+          item.classList.add('active');
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          // Remove active class after delay
+          setTimeout(() => {
+            if (!item.matches(':hover')) {
+              item.classList.remove('active');
+            }
+          }, 100);
+        });
+      });
+      
+      console.log('✅ Enhanced mega menu with', menuItems.length, 'menu items');
+    } else {
+      console.log('❌ Menu container not found - no enhancement applied');
     }
-    
-    // NUCLEAR FORCE ALL PANELS VISIBLE IMMEDIATELY
-    this.megaMenuPanels = this.categoriesMenu?.querySelectorAll('.alx-mega-menu-panel, .mega-menu__panel') || [];
-    this.megaMenuPanels.forEach(panel => {
-      panel.style.cssText = `
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        background: white !important;
-        padding: 20px !important;
-        z-index: 2147483647 !important;
-        color: black !important;
-      `;
-    });
     
     // Show first category panel by default
     if (this.categoriesItems.length > 0 && this.megaMenuPanels.length > 0) {

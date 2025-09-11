@@ -382,6 +382,61 @@
   overflow: visible !important;
 }
 
+/* New clean menu structure */
+.mega-menu-container {
+  width: 100%;
+  position: relative;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+}
+
+.mega-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  z-index: 1000;
+  min-width: 800px;
+  padding: 20px;
+}
+
+.menu-item:hover .mega-dropdown,
+.menu-item.active .mega-dropdown {
+  display: block;
+}
+
+.sub-submenu {
+  margin-top: 10px;
+}
+
+.sub-submenu .alx-mega-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-submenu .alx-mega-menu-item {
+  margin-bottom: 8px;
+}
+
+.sub-submenu .alx-mega-menu-link {
+  color: #666;
+  text-decoration: none;
+  padding: 4px 0;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.sub-submenu .alx-mega-menu-link:hover {
+  color: var(--alx-primary-color);
+}
+
 /* Mega menu visibility controlled by JavaScript only */
 .alx-categories-dropdown.active .alx-categories-menu {
   visibility: visible;

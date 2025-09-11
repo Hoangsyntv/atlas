@@ -375,32 +375,38 @@
             </div>
 
             <!-- Mega Menu Content -->
-            <div class="alx-mega-menu-content">
+            <div class="alx-mega-menu-content mega-menu-container">
               {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
                 {%- for link in section.settings.menu.links -%}
-                  {%- if link.links != blank -%}
-                    <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-{{ link.title | handleize }}" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %}; visibility: visible; opacity: 1; z-index: 2147483647;">
-                      <div class="alx-mega-menu-grid">
-                        {%- for childlink in link.links -%}
-                          <div class="alx-mega-menu-column">
-                            <h4 class="alx-mega-menu-heading">
-                              <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
-                            </h4>
-                            {%- if childlink.links != blank -%}
-                              <ul class="alx-mega-menu-list">
-                              {%- for grandchildlink in childlink.links -%}
-                                <li class="alx-mega-menu-item">
-                                  <a href="{{ grandchildlink.url }}" class="alx-mega-menu-link">
-                                    {{ grandchildlink.title | escape }}
-                                  </a>
-                                </li>
-                              {%- endfor -%}
-                            </ul>
-                          {%- endif -%}
+                  <div class="menu-item" data-category="{{ forloop.index }}">
+                    <a href="{{ link.url }}" class="main-menu-link">{{ link.title | escape }}</a>
+                    {%- if link.links != blank -%}
+                      <div class="mega-dropdown" id="MegaMenu-Content-{{ forloop.index }}">
+                        <div class="alx-mega-menu-grid">
+                          {%- for childlink in link.links -%}
+                            <div class="submenu-item alx-mega-menu-column">
+                              <h4 class="alx-mega-menu-heading">
+                                <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                              </h4>
+                              {%- if childlink.links != blank -%}
+                                <div class="sub-submenu">
+                                  <ul class="alx-mega-menu-list">
+                                    {%- for grandchild in childlink.links -%}
+                                      <li class="alx-mega-menu-item">
+                                        <a href="{{ grandchild.url }}" class="alx-mega-menu-link">
+                                          {{ grandchild.title | escape }}
+                                        </a>
+                                      </li>
+                                    {%- endfor -%}
+                                  </ul>
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          {%- endfor -%}
                         </div>
-                      {%- endfor -%}
-                    </div>
-                  {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
                 {%- endfor -%}
               {%- endif -%}
               
