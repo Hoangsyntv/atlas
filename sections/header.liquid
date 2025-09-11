@@ -376,21 +376,8 @@
 
             <!-- Mega Menu Content -->
             <div class="alx-mega-menu-content">
-              <!-- DEBUG INFO -->
-              <div style="background: yellow; padding: 10px; color: black; font-size: 12px; margin: 10px;">
-                DEBUG: Menu = {{ section.settings.menu.title | default: 'NULL' }}<br>
-                Links count = {{ section.settings.menu.links.size | default: 0 }}<br>
-                Menu blank? = {{ section.settings.menu == blank }}<br>
-                Timestamp: {{ 'now' | date: "%H:%M:%S" }}
-              </div>
               {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
-                <div style="background: lightgreen; padding: 10px; color: black; font-size: 12px; margin: 10px;">
-                  MENU FOUND! Processing {{ section.settings.menu.links.size }} links...
-                </div>
                 {%- for link in section.settings.menu.links -%}
-                  <div style="background: lightblue; padding: 5px; color: black; font-size: 11px;">
-                    Link {{ forloop.index }}: "{{ link.title }}" - Has sublinks: {{ link.links != blank }} ({{ link.links.size | default: 0 }} items)
-                  </div>
                   {%- if link.links != blank -%}
                     <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-{{ link.title | handleize }}" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %}; visibility: visible; opacity: 1; z-index: 2147483647;">
                       <div class="alx-mega-menu-grid">
@@ -415,10 +402,6 @@
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
-              {%- else -%}
-                <div style="background: red; padding: 10px; color: white; font-size: 12px; margin: 10px;">
-                  NO MENU DATA FOUND! Menu is blank or has no links.
-                </div>
               {%- endif -%}
               
               {%- if section.settings.menu == blank or section.settings.menu.links.size == 0 -%}
