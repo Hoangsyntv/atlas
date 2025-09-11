@@ -11,6 +11,66 @@ class AliExpressHeader extends HTMLElement {
     this.setupMegaMenu();
     this.setupMobileMenu();
     this.setupSearch();
+    
+    // NUCLEAR FORCE - Generate content immediately on load
+    setTimeout(() => {
+      this.forceGenerateContent();
+    }, 100);
+  }
+  
+  forceGenerateContent() {
+    const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
+    if (contentArea) {
+      // Force content area visible immediately
+      contentArea.style.cssText = `
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: white !important;
+        padding: 20px !important;
+        z-index: 2147483647 !important;
+        min-height: 300px !important;
+        width: 100% !important;
+        overflow: visible !important;
+        position: relative !important;
+        border: 3px solid blue !important;
+      `;
+      
+      // FORCE rich content always
+      contentArea.innerHTML = `
+        <div style="display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 30px !important; padding: 20px !important; background: white !important; color: black !important;">
+          <div style="color: black !important;">
+            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Danh mục sản phẩm</h3>
+            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
+              <li style="margin-bottom: 8px !important;"><a href="/collections/all" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tất cả sản phẩm</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/collections/new" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Sản phẩm mới</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/collections/sale" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Khuyến mãi</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/collections/featured" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Nổi bật</a></li>
+            </ul>
+          </div>
+          <div style="color: black !important;">
+            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Hỗ trợ khách hàng</h3>
+            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
+              <li style="margin-bottom: 8px !important;"><a href="/pages/contact" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Liên hệ</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/shipping" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Vận chuyển</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/returns" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Đổi trả</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/faq" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">FAQ</a></li>
+            </ul>
+          </div>
+          <div style="color: black !important;">
+            <h3 style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: red !important;">Thông tin</h3>
+            <ul style="list-style: none !important; padding: 0 !important; margin: 0 !important; color: black !important;">
+              <li style="margin-bottom: 8px !important;"><a href="/pages/about" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Về chúng tôi</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/blog" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Blog</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/news" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tin tức</a></li>
+              <li style="margin-bottom: 8px !important;"><a href="/pages/search" style="color: black !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tìm kiếm</a></li>
+            </ul>
+          </div>
+        </div>
+      `;
+      
+      console.log('NUCLEAR CONTENT INJECTED ON PAGE LOAD');
+    }
   }
 
   initializeElements() {
@@ -166,10 +226,10 @@ class AliExpressHeader extends HTMLElement {
       `;
     }
     
-    // ALWAYS GENERATE CONTENT - NO CONDITIONS
+    // NUCLEAR CONTENT GENERATION - ALWAYS OVERRIDE EVERYTHING
     const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
     if (contentArea) {
-      // Force content area visibility
+      // Force content area visibility with NUCLEAR CSS
       contentArea.style.cssText = `
         display: block !important;
         visibility: visible !important;
@@ -178,9 +238,13 @@ class AliExpressHeader extends HTMLElement {
         padding: 20px !important;
         z-index: 2147483647 !important;
         min-height: 300px !important;
+        width: 100% !important;
+        overflow: visible !important;
+        position: relative !important;
+        border: 2px solid red !important;
       `;
       
-      // ALWAYS inject content (remove the condition)
+      // NUCLEAR OVERRIDE - ALWAYS inject rich content regardless of existing content
       contentArea.innerHTML = `
         <div class="alx-mega-menu-grid" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 30px !important; padding: 20px !important; background: white !important;">
           <div class="alx-mega-menu-column" style="color: black !important;">
