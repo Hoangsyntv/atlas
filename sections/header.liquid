@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
     
-    // Position and style
+    // Position and style - USING FIXED POSITION
     Object.assign(simpleMenu.style, {
-      position: 'absolute',
-      top: '100%',
+      position: 'fixed',
+      top: '120px',
       left: '0',
       right: '0',
       zIndex: '999999',
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
       transition: 'opacity 0.3s ease, visibility 0.3s ease'
     });
     
-    dropdown.appendChild(simpleMenu);
+    document.body.appendChild(simpleMenu);
     
     // Simple show/hide events
     let isShowing = false;
