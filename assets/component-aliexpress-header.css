@@ -447,7 +447,7 @@
 .mega-menu__panel,
 .alx-mega-menu-panel {
   padding: 20px !important;
-  display: block !important;
+  display: block;
   opacity: 1 !important;
   visibility: visible !important;
   background: var(--alx-bg-white) !important;
