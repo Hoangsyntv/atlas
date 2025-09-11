@@ -372,12 +372,12 @@
   box-shadow: var(--alx-shadow);
   border: 1px solid var(--alx-border-color);
   display: flex !important;
-  visibility: hidden;
-  opacity: 0;
+  visibility: visible !important;
+  opacity: 1 !important;
   transform: translateY(0) !important;
   transition: all 0.2s ease;
   z-index: 2147483647 !important;
-  pointer-events: none;
+  pointer-events: auto !important;
   min-height: 400px !important;
   overflow: visible !important;
 }

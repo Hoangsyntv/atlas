@@ -362,15 +362,6 @@
                     </li>
                   {%- endfor -%}
                 {%- endif -%}
-                <!-- FORCE VIETNAMESE LEVEL 1 CATEGORY -->
-                <li class="alx-category-item active" data-category="1" style="display: block !important;">
-                  <a href="/collections/noi-that-van-phong" class="alx-category-link" style="display: flex !important; align-items: center !important; padding: 12px !important; color: black !important; text-decoration: none !important; background: #f0f0f0 !important;">
-                    <span class="alx-category-title" style="font-weight: bold !important; font-size: 16px !important; color: #d32f2f !important;">Nội thất văn phòng</span>
-                    <svg class="alx-icon alx-icon--arrow" width="16" height="16" viewBox="0 0 16 16" style="margin-left: auto !important;">
-                      <path d="M6 4l4 4-4 4" fill="currentColor"/>
-                    </svg>
-                  </a>
-                </li>
                 
                 {%- if section.settings.menu == blank or section.settings.menu.links.size == 0 -%}
                   <!-- OLD FALLBACK SIDEBAR CATEGORIES - Hidden now -->
@@ -388,7 +379,7 @@
               {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
                 {%- for link in section.settings.menu.links -%}
                   {%- if link.links != blank -%}
-                    <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-{{ link.title | handleize }}" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %}; z-index: 2147483647;">
+                    <div id="MegaMenu-Content-{{ forloop.index }}" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="HeaderMenu-{{ link.title | handleize }}" data-category="{{ forloop.index }}" style="display: {% if forloop.first %}block{% else %}none{% endif %}; visibility: visible; opacity: 1; z-index: 2147483647;">
                       <div class="alx-mega-menu-grid">
                         {%- for childlink in link.links -%}
                           <div class="alx-mega-menu-column">
@@ -412,74 +403,6 @@
                   {%- endif -%}
                 {%- endfor -%}
               {%- endif -%}
-              
-              <!-- FORCE VIETNAMESE FURNITURE MENU v2 - MUST SHOW -->
-              <!-- DEBUG: Template timestamp {{ 'now' | date: "%Y%m%d%H%M%S" }} -->
-              <div id="VietnamFurnitureMenu-1" class="mega-menu__panel alx-mega-menu-panel" tabindex="-1" role="menu" aria-labelledby="VietnamMenu-1" data-category="1" style="display: block !important; visibility: visible !important; opacity: 1 !important; background: yellow !important; padding: 20px !important; z-index: 2147483647 !important; border: 5px solid red !important; position: fixed !important; top: 100px !important; left: 50px !important; right: 50px !important;">
-                <div class="alx-mega-menu-grid" style="display: grid !important; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; gap: 20px !important;">
-                  <div class="alx-mega-menu-column" style="display: block !important;">
-                    <h4 class="alx-mega-menu-heading" style="color: red !important; font-weight: bold !important; margin: 0 0 15px 0 !important; display: block !important; font-size: 18px !important;">Ghế văn phòng</h4>
-                    <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: block !important;">
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-giam-doc" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế giám đốc</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-xoay-van-phong" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế xoay văn phòng</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-chan-quy" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế chân quỳ</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-bang-cho" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế băng chờ</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-gap" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế gấp</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-don" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế đôn</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-quay-bar" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế quầy bar</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ghe-phong-hop" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Ghế phòng họp</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="alx-mega-menu-column" style="display: block !important;">
-                    <h4 class="alx-mega-menu-heading" style="color: red !important; font-weight: bold !important; margin: 0 0 15px 0 !important; display: block !important; font-size: 18px !important;">Bàn văn phòng</h4>
-                    <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: block !important;">
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ban-giam-doc" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Bàn giám đốc</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ban-nhan-vien" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Bàn nhân viên</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ban-hop" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Bàn họp</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ban-may-tinh" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Bàn máy tính</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="alx-mega-menu-column" style="display: block !important;">
-                    <h4 class="alx-mega-menu-heading" style="color: red !important; font-weight: bold !important; margin: 0 0 15px 0 !important; display: block !important; font-size: 18px !important;">Tủ & Kệ văn phòng</h4>
-                    <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important; display: block !important;">
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/tu-tai-lieu" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Tủ tài liệu</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/ke-sach" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Kệ sách</a>
-                      </li>
-                      <li class="alx-mega-menu-item" style="margin: 8px 0 !important; display: block !important;">
-                        <a href="/collections/tu-locker" class="alx-mega-menu-link" style="color: black !important; text-decoration: none !important; display: block !important; padding: 5px 0 !important; font-size: 15px !important;">Tủ Locker</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <p style="font-size: 12px; color: green; margin-top: 15px; font-weight: bold;">✅ LEVEL 1: Nội thất văn phòng → LEVEL 2: Ghế văn phóng, Bàn văn phòng → LEVEL 3: Ghế giám đốc, Ghế xoay văn phòng, etc.</p>
-              </div>
               
               {%- if section.settings.menu == blank or section.settings.menu.links.size == 0 -%}
                 <!-- OLD FALLBACK CONTENT - Should not show now -->
