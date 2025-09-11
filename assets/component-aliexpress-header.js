@@ -210,10 +210,10 @@ class AliExpressHeader extends HTMLElement {
       `;
     }
     
-    // NUCLEAR CONTENT GENERATION - ALWAYS OVERRIDE EVERYTHING
+    // Show existing HTML content instead of overriding it
     const contentArea = this.categoriesMenu?.querySelector('.alx-mega-menu-content');
     if (contentArea) {
-      // Force content area visibility with NUCLEAR CSS
+      // Force content area visibility only
       contentArea.style.cssText = `
         display: block !important;
         visibility: visible !important;
@@ -225,41 +225,10 @@ class AliExpressHeader extends HTMLElement {
         width: 100% !important;
         overflow: visible !important;
         position: relative !important;
-        border: 2px solid red !important;
       `;
       
-      // NUCLEAR OVERRIDE - ALWAYS inject rich content regardless of existing content
-      contentArea.innerHTML = `
-        <div class="alx-mega-menu-grid" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 30px !important; padding: 20px !important; background: white !important;">
-          <div class="alx-mega-menu-column" style="color: black !important;">
-            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Danh mục sản phẩm</h4>
-            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/all" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tất cả sản phẩm</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/new" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Sản phẩm mới</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/sale" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Khuyến mãi</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/collections/featured" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Nổi bật</a></li>
-            </ul>
-          </div>
-          <div class="alx-mega-menu-column" style="color: black !important;">
-            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Hỗ trợ khách hàng</h4>
-            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/contact" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Liên hệ</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/shipping" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Vận chuyển</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/returns" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Đổi trả</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/faq" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">FAQ</a></li>
-            </ul>
-          </div>
-          <div class="alx-mega-menu-column" style="color: black !important;">
-            <h4 class="alx-mega-menu-heading" style="margin: 0 0 15px 0 !important; font-weight: bold !important; color: black !important;">Thông tin</h4>
-            <ul class="alx-mega-menu-list" style="list-style: none !important; padding: 0 !important; margin: 0 !important;">
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/about" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Về chúng tôi</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/blog" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Blog</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/news" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tin tức</a></li>
-              <li class="alx-mega-menu-item" style="margin-bottom: 8px !important;"><a href="/pages/search" class="alx-mega-menu-link" style="color: #333 !important; text-decoration: none !important; display: block !important; padding: 4px 0 !important;">Tìm kiếm</a></li>
-            </ul>
-          </div>
-        </div>
-      `;
+      // DO NOT override innerHTML - let HTML template render dynamic content
+      console.log('Mega menu content area made visible, using existing HTML content');
     }
     
     // NUCLEAR FORCE ALL PANELS VISIBLE IMMEDIATELY
