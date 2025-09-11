@@ -17,187 +17,124 @@
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>
+{% comment %}<script src="{{ 'component-aliexpress-header.js' | asset_url }}" defer="defer"></script>{% endcomment %}
 
 <script>
-// SIMPLE & WORKING MEGA MENU
+// FIXED MEGA MENU - Show actual content instead of hidden
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('=== CREATING SIMPLE MEGA MENU ===');
+  console.log('=== FIXING MEGA MENU VISIBILITY ===');
   
   const trigger = document.querySelector('.alx-categories-trigger');
   const dropdown = document.querySelector('.alx-categories-dropdown');
+  const menu = document.querySelector('.alx-categories-menu');
   
-  if (trigger && dropdown) {
-    // Remove any existing mega menu
-    const existingMenu = dropdown.querySelector('.alx-categories-menu');
-    if (existingMenu) {
-      existingMenu.remove();
+  if (trigger && dropdown && menu) {
+    console.log('✅ Found mega menu elements');
+    
+    // Make sure the existing menu is visible and styled properly
+    menu.style.cssText = `
+      position: fixed !important;
+      top: 120px !important;
+      left: 0 !important;
+      right: 0 !important;
+      background: white !important;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+      border: 1px solid #ddd !important;
+      z-index: 999999 !important;
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease, visibility 0.3s ease !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      min-height: 400px !important;
+    `;
+    
+    // Style the content area to ensure it's visible
+    const contentArea = menu.querySelector('.alx-mega-menu-content');
+    if (contentArea) {
+      contentArea.style.cssText = `
+        background: white !important;
+        padding: 30px !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      `;
+      console.log('✅ Fixed content area visibility');
     }
     
-    // Create working mega menu with DOM methods
-    const workingMenu = document.createElement('div');
-    workingMenu.className = 'working-mega-menu';
+    // Style the sidebar to ensure it's visible
+    const sidebar = menu.querySelector('.alx-categories-sidebar');
+    if (sidebar) {
+      sidebar.style.cssText = `
+        background: white !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 280px !important;
+        border-right: 1px solid #e0e0e0 !important;
+      `;
+      console.log('✅ Fixed sidebar visibility');
+    }
     
-    // Create container
-    const container = document.createElement('div');
-    container.style.cssText = 'background: white; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border: 1px solid #ddd;';
-    
-    // Create grid
-    const grid = document.createElement('div');
-    grid.style.cssText = 'display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;';
-    
-    // Column 1 - Sản phẩm hot
-    const col1 = document.createElement('div');
-    const h1 = document.createElement('h4');
-    h1.textContent = 'Sản phẩm hot';
-    h1.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
-    col1.appendChild(h1);
-    
-    const links1 = [
-      { text: 'Tất cả sản phẩm', href: '/collections/all' },
-      { text: 'Sản phẩm mới', href: '/collections/new' },
-      { text: 'Khuyến mãi', href: '/collections/sale' }
-    ];
-    links1.forEach(link => {
-      const a = document.createElement('a');
-      a.textContent = link.text;
-      a.href = link.href;
-      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
-      col1.appendChild(a);
+    // Style all menu panels to be visible
+    const panels = menu.querySelectorAll('.alx-mega-menu-panel');
+    panels.forEach((panel, index) => {
+      panel.style.cssText = `
+        display: ${index === 0 ? 'block' : 'none'} !important;
+        background: white !important;
+        padding: 20px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      `;
     });
     
-    // Column 2 - Danh mục
-    const col2 = document.createElement('div');
-    const h2 = document.createElement('h4');
-    h2.textContent = 'Danh mục';
-    h2.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
-    col2.appendChild(h2);
-    
-    const links2 = [
-      { text: 'Điện tử', href: '/collections/electronics' },
-      { text: 'Thời trang', href: '/collections/fashion' },
-      { text: 'Gia dụng', href: '/collections/home' }
-    ];
-    links2.forEach(link => {
-      const a = document.createElement('a');
-      a.textContent = link.text;
-      a.href = link.href;
-      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
-      col2.appendChild(a);
-    });
-    
-    // Column 3 - Hỗ trợ
-    const col3 = document.createElement('div');
-    const h3 = document.createElement('h4');
-    h3.textContent = 'Hỗ trợ';
-    h3.style.cssText = 'color: #ff4747; margin: 0 0 15px 0; font-size: 16px;';
-    col3.appendChild(h3);
-    
-    const links3 = [
-      { text: 'Liên hệ', href: '/pages/contact' },
-      { text: 'Vận chuyển', href: '/pages/shipping' },
-      { text: 'Về chúng tôi', href: '/pages/about' }
-    ];
-    links3.forEach(link => {
-      const a = document.createElement('a');
-      a.textContent = link.text;
-      a.href = link.href;
-      a.style.cssText = 'display: block; color: #333; text-decoration: none; font-size: 14px; margin-bottom: 8px; padding: 2px 0;';
-      col3.appendChild(a);
-    });
-    
-    // Assemble everything
-    grid.appendChild(col1);
-    grid.appendChild(col2);
-    grid.appendChild(col3);
-    container.appendChild(grid);
-    workingMenu.appendChild(container);
-    
-    // Position and style - USING FIXED POSITION
-    Object.assign(workingMenu.style, {
-      position: 'fixed',
-      top: '120px',
-      left: '0',
-      right: '0',
-      zIndex: '999999',
-      display: 'none',
-      visibility: 'hidden',
-      opacity: '0',
-      transition: 'opacity 0.3s ease, visibility 0.3s ease'
-    });
-    
-    document.body.appendChild(workingMenu);
-    
-    // Simple show/hide events
     let isShowing = false;
     
     function showMenu() {
       isShowing = true;
-      workingMenu.style.display = 'block';
+      menu.style.display = 'flex !important';
       setTimeout(() => {
-        workingMenu.style.visibility = 'visible';
-        workingMenu.style.opacity = '1';
+        menu.style.visibility = 'visible !important';
+        menu.style.opacity = '1 !important';
       }, 10);
-      console.log('✅ Working mega menu shown');
+      console.log('✅ Mega menu shown with content visible');
     }
     
     function hideMenu() {
       isShowing = false;
-      workingMenu.style.opacity = '0';
-      workingMenu.style.visibility = 'hidden';
+      menu.style.opacity = '0 !important';
+      menu.style.visibility = 'hidden !important';
       setTimeout(() => {
         if (!isShowing) {
-          workingMenu.style.display = 'none';
+          menu.style.display = 'none !important';
         }
       }, 300);
-      console.log('❌ Working mega menu hidden');
+      console.log('❌ Mega menu hidden');
     }
     
     // Event listeners
     trigger.addEventListener('mouseenter', showMenu);
     dropdown.addEventListener('mouseleave', hideMenu);
     
-    console.log('✅ Simple mega menu created successfully');
+    console.log('✅ Mega menu fixed - content should now be visible');
   } else {
-    console.log('❌ Missing trigger or dropdown elements');
+    console.log('❌ Missing mega menu elements:', { trigger: !!trigger, dropdown: !!dropdown, menu: !!menu });
   }
 });
 </script>
 
 {% comment %} Header styles {% endcomment %}
 <style>
-  /* MEGA MENU HOVER - UPDATED LOGIC */
-  .alx-categories-dropdown:hover .alx-categories-menu,
-  .alx-categories-dropdown.active .alx-categories-menu {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-    transition: opacity 0.2s ease, visibility 0.2s ease !important;
-  }
-  
-  /* Fix mega menu default state - FINAL POSITIONING FIX */
+  /* MEGA MENU CONTROLLED BY JAVASCRIPT - NO CSS HOVER */
   .alx-categories-menu {
-    position: fixed !important;
-    top: var(--header-height, 80px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: white !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important;
-    border: 1px solid #e0e0e0 !important;
-    border-top: none !important;
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    z-index: 999999 !important;
-    width: 100% !important;
-    max-width: 100vw !important;
-    min-height: 400px !important;
-    margin: 0 !important;
-    transform: translateX(0) !important;
-    pointer-events: none !important;
-    overflow: visible !important;
+    /* Basic structure - positioning handled by JS */
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border: 1px solid #ddd;
+    z-index: 999999;
+    display: flex;
+    /* All positioning and visibility handled by JavaScript */
   }
   
   .alx-categories-dropdown {
