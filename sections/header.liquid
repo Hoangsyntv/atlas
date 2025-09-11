@@ -157,8 +157,10 @@
 {% comment %} AliExpress-style Header Wrapper {% endcomment %}
 <{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
   
-  <!-- AliExpress Top Header -->
-  <header class="alx-header" id="alx-main-header">
+  <!-- AliExpress Custom Element Wrapper -->
+  <aliexpress-header>
+    <!-- AliExpress Top Header -->
+    <header class="alx-header" id="alx-main-header">
     <div class="page-width alx-header__container">
       <!-- Left: Logo -->
       <div class="alx-header__left">
@@ -483,6 +485,7 @@
       </div>
     </nav>
   {%- endif -%}
+  </aliexpress-header>
 
   <!-- Mobile Menu Drawer -->
   {%- if section.settings.menu != blank -%}
