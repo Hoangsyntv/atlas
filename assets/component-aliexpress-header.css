@@ -455,6 +455,47 @@
   position: relative !important;
   color: black !important;
   font-size: 14px !important;
+  width: 100% !important;
+  min-height: 200px !important;
+  overflow: visible !important;
+  transform: none !important;
+  clip: unset !important;
+  clip-path: none !important;
+  max-height: none !important;
+  height: auto !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* NUCLEAR OVERRIDE - Force all mega menu content visible */
+.alx-categories-menu.active .alx-mega-menu-panel,
+.alx-categories-menu.active .mega-menu__panel,
+.alx-categories-dropdown.active .alx-mega-menu-panel,
+.alx-categories-dropdown.active .mega-menu__panel {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: white !important;
+  border: 2px solid red !important;
+  min-height: 300px !important;
+}
+
+/* ULTIMATE NUCLEAR OVERRIDE - Force visible at all times */
+.alx-mega-menu-panel,
+.mega-menu__panel {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: white !important;
+  border: 1px solid #ccc !important;
+  min-height: 200px !important;
+  color: black !important;
 }
 
 .alx-mega-menu-grid {
